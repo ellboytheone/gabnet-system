@@ -21,20 +21,24 @@
         <form action="home/index.html" method="">
           <div class="input-box">
             <label for="email">E-mail</label>
-            <input type="email" name="email" id="email" required/>
+            <input type="email" name="email" id="email" required />
           </div>
           <div class="input-box">
             <label for="password">Senha:</label>
-            <input type="password" name="password" id="password" required/>
+            <input type="password" name="password" id="password" required />
           </div>
           <button type="submit">Iniciar</button>
-          <a href="recover.html">
-            <p>Esqueceste a senha?</p>
-          </a>
+          <br />
+          <a href="recover.html"> Esqueceste a senha? </a>
         </form>
         <p>
           Nunca te registraste?
-          <a href="javascript:void(0)" class="change-auth-links" id="signin-link">Registrar</a>
+          <a
+            href="javascript:void(0)"
+            class="change-auth-links"
+            id="signin-link"
+            >Registrar</a
+          >
         </p>
       </section>
       <section class="form-box invisible" id="signin-section">
@@ -73,11 +77,13 @@
               required
             />
           </div>
-          <button type="submit">Submeter</button>
+          <button onclick="toggleAuth()" type="submit">Registrar</button>
         </form>
         <p>
           Já tens conta?
-          <a href="javascript:void(0)" class="change-auth-links" id="login-link">Entrar</a>
+          <a href="javascript:void(0)" class="change-auth-links" id="login-link"
+            >Entrar</a
+          >
         </p>
       </section>
     </main>

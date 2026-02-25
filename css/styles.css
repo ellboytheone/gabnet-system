@@ -6,16 +6,6 @@
   display: block;
 }
 /*PENDING!!*/
-#test {
-  display: block;
-  margin: 20px 0 0 2px;
-  background-color: blueviolet;
-  padding: 10px 15px;
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 10px;
-}
 #honor-roll-images {
   display: flex;
 }
