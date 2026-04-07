@@ -3,12 +3,12 @@
     $dbHost = 'localhost';
     $dbUsername = 'root';
     $dbPassword = '';
-    $dbName = 'gabnet_system';
+    $dbName = 'gabnet-system';
 
     $connect = new mysqli($dbHost,$dbUsername,$dbPassword,$dbName);
 
-    //if ($connect->connect_error) {
-    //    die("Erro de conexão: " . $connect->connect_error);
-    //}
+    if ($connect->connect_error) {
+      die("Erro de conexão: " . $connect->connect_error);
+    }
     
 ?>
