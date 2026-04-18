@@ -3,147 +3,193 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GABnet - Portal de Informações</title>
-    <link rel="icon" href="assets/images/GAB.ico" type="image/x-icon">
-    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      rel="shortcut icon"
+      href="assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+    <title>GABnet Portal de Informações</title>
   </head>
   <body>
     <header>
-      <span class="logo-container">
-        <a href="index.html">
-          <img src="assets/images/gabnet-logo.png" alt="Logo do GABnet" />
-        </a>
-      </span>
+      <a href="/index.html" class="logo-link">
+        <img
+          src="assets/images/gabnet-logo.png"
+          alt="Logo de GABnet"
+          class="logo"
+        />
+        <div class="logo-txt">
+          <strong>GABnet</strong>
+          <br />
+          <small>Portal de Informações Escolares</small>
+        </div>
+      </a>
       <nav class="nav-bar">
         <ul>
-          <li><a href="#portal-description">Sobre</a></li>
-          <li><a href="#school-info-section">Cursos</a></li>
-          <li><a href="#institutional-info-section">Informações</a></li>
+          <li><a href="#about-section">Sobre</a></li>
+          <li><a href="#courses-section">Cursos</a></li>
+          <li><a href="#institution-section">Instituição</a></li>
         </ul>
       </nav>
-      <span id="auth-text">
-        <a href="login.php">Iniciar sessão</a>
-      </span>
+      <a href="login.php" class="login-button">Iniciar Sessão</a>
     </header>
-    <main id="greetings-section">
-      <h1>Bem-vindo ao Portal GABnet</h1>
-      <p>
-        O GABnet é o portal institucional do
-        <strong>Instituto Politécnico Privado GAB do Saber</strong>, criado para
-        facilitar o acesso à informação académica e institucional. Aqui o
-        visitante pode conhecer os cursos, serviços e actividades da
-        instituição.
-      </p>
+    <main id="">
+      <div class="container intro-container">
+        <section class="intro-content">
+          <span class="intro-label">
+            <p>Instituto Politécnico Privado GAB do Saber</p>
+          </span>
+          <article class="intro-article">
+            <h1>A informação da <em>tua escola</em>, sempre disponível</h1>
+            <p>
+              O GABnet centraliza horários, comunicados e informações académicas
+              num único portal — acessível a alunos, professores e encarregados
+              de educação, em qualquer momento.
+            </p>
+          </article>
+          <section class="intro-buttons">
+            <a href="login.php">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"></path>
+                <polyline points="10 17 15 12 10 7"></polyline>
+                <line x1="15" y1="12" x2="3" y2="12"></line>
+              </svg>
+              Aceder ao portal
+            </a>
+            <a href="#about-section">Saber mais</a>
+          </section>
+        </section>
+        <aside class="side-card-container" style="display: none">
+          <div class="side-card">
+            <div class="side-stat">
+              <strong>3</strong>
+              <p>Cursos técnicos disponíveis</p>
+            </div>
+            <div class="side-stat">
+              <strong>100%</strong>
+              <p>Informações actualizadas</p>
+            </div>
+            <div class="side-stat">
+              <strong>3</strong>
+              <p>Perfis de acesso (Aluno, Professor, ADM)</p>
+            </div>
+            <div class="side-stat">
+              <strong>24/7</strong>
+              <p>Disponibilidade do portal</p>
+            </div>
+          </div>
+        </aside>
+      </div>
     </main>
-    <section id="portal-description">
-      <h2>Sobre o portal</h2>
-      <div class="description-block">
-        <h3>Finalidade</h3>
-        <p>
-          O portal tem como finalidade disponibilizar informação académica e
-          institucional de forma simples, rápida e organizada.
-        </p>
-      </div>
-      <div class="description-block">
-        <h3>Público-Alvo</h3>
-        <p>
-          Destina-se aos <a href="login.php">membros da instituição</a>,
-          nomeadamente, estudantes, professores e funcionários, e até à
-          visitantes interessados na instituição.
-        </p>
-      </div>
-      <div class="description-block">
-        <h3>Serviços Oferecidos</h3>
-        <p>
-          Consulta de cursos, informações institucionais, actividades académicas
-          e comunicados.
-        </p>
+    <section id="about-section">
+      <div class="container">
+        <header class="section-header">
+          <span class="tag">Sobre o portal</span>
+          <h2>Um portal criado para facilitar a comunicação escolar</h2>
+          <p>
+            Desenvolvido para responder a uma necessidade real da instituição:
+            tornar a informação académica acessível de forma rápida, organizada
+            e eficiente.
+          </p>
+        </header>
+        <ul class="about-grid">
+          <li class="about-card">
+            <span class="about-icon"><svg>...</svg></span>
+            <h3>Finalidade</h3>
+            <p>
+              Disponibilizar informação académica e institucional de forma
+              simples, rápida e organizada a todos os membros da escola.
+            </p>
+          </li>
+          <li class="about-card">
+            <span class="about-icon"><svg>...</svg></span>
+            <h3>Público-alvo</h3>
+            <p>
+              Destina-se a estudantes, professores e funcionários da
+              instituição, bem como visitantes que queiram conhecer os nossos
+              cursos.
+            </p>
+          </li>
+          <li class="about-card">
+            <span class="about-icon"><svg>...</svg></span>
+            <h3>Serviços disponíveis</h3>
+            <p>
+              Consulta de horários, comunicados institucionais, informações
+              sobre cursos e actividades académicas actualizadas.
+            </p>
+          </li>
+        </ul>
       </div>
     </section>
-    <section id="school-info-section">
-      <h2>Conheça os nossos cursos</h2>
-      <p>
-        Explore os cursos técnicos e profissionais oferecido pela nossa
-        instituição.
-      </p>
-      <article id="courses-container">
-        <div class="course-article">
-          <img src="/assets/images/GABnet Logo V.png" alt="Representação do Curso de Informática" style="width: 150px;">
-          <div class="course-description">
-            <h3>Informática</h3>
-            <p>Simples e breve descrição sobre o curso de informática...</p>
-          </div>
-        </div>
-        <div class="course-article">
-          <img src="/assets/images/GABnet Logo V.png" alt="Representação do Curso de Electricidade" style="width: 150px;">
-          <div class="course-description">
-            <h3>Electricidade</h3>
-            <p>Simples e breve descrição sobre o curso de electricidade...  </p>
-          </div>
-        </div>
-        <div class="course-article">
-          <img src="/assets/images/GABnet Logo V.png" alt="Representação do Curso de Contabilidade e Gestão" style="width: 150px;">
-          <div class="course-description">
-            <h3>Contabilidade e Gestão</h3>
-            <p>Simples e breve descrição sobre o curso de contabilidade e gestão...
-          </div>
-        </div>
-      </article>
+    <section id="courses-section">
+      <div class="container">
+        <header class="section-header">
+          <span class="tag">Formação técnica</span>
+          <h2>Conheça os nossos cursos</h2>
+          <p>
+            Explore os cursos técnicos e profissionais oferecidos pelo Instituto
+            GAB do Saber.
+          </p>
+        </header>
+        <ul class="courses-grid">
+          <li class="course-card">
+            <div class="course-thumb">
+              <img src="assets/images/course1.jpg" alt="Curso de Informática" />
+              <span class="course-badge">Técnico</span>
+            </div>
+            <div class="course-info">
+              <h3>Curso de Informática</h3>
+              <p>
+                Formação técnica em sistemas informáticos, redes e programação
+                básica, preparando profissionais para o mercado de trabalho
+                digital.
+              </p>
+            </div>
+          </li>
+          <li class="course-card">
+            <div class="course-thumb">
+              <img
+                src="assets/images/course2.jpg"
+                alt="Curso de Electricidade"
+              />
+              <span class="course-badge">Técnico</span>
+            </div>
+            <div class="course-info">
+              <h3>Curso de Electricidade</h3>
+              <p>
+                Curso técnico em instalações eléctricas, manutenção e segurança
+                eléctrica, com formação prática e teórica de qualidade.
+              </p>
+            </div>
+          </li>
+          <li class="course-card">
+            <div class="course-thumb">
+              <img
+                src="assets/images/course3.jpg"
+                alt="Curso de Contabilidade e Gestão"
+              />
+              <span class="course-badge">Técnico</span>
+            </div>
+            <div class="course-info">
+              <h3>Curso de Contabilidade e Gestão</h3>
+              <p>
+                Formação em contabilidade geral, gestão empresarial e finanças,
+                essencial para o desenvolvimento económico.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </section>
-    <section id="institutional-info-section">
-      <h2>Informações institucionais</h2>
-      <p>
-        O Instituto Politécnico Privado GAB do Saber é uma instituição dedicada
-        à formação técnica e profissional de qualidade
-      </p>
-      <ul>
-        <li>
-          <strong>Missão:</strong> Formar profissionais competentes e
-          responsáveis.
-        </li>
-        <li><strong>Visão:</strong> Ser referência em educação técnica</li>
-        <li><strong>Valores:</strong>Ética, Inovação e Excelência</li>
-      </ul>
-      <article id="honor-roll">
-        <h3>Quadro de honra e Destaques</h3>
-        <div id="honor-roll-images">
-          <figure>
-            <img
-              src="/assets/images/student-example.png"
-              alt="Estudante do quadro de honra ou Destaque"
-            />
-            <figcaption>Melhor Aluno de Informática</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="/assets/images/student-example.png"
-              alt="Estudante do quadro de honra ou Destaque"
-            />
-            <figcaption>Melhor Aluno de Electrônica</figcaption>
-          </figure>
-          <figure>
-            <img
-              src="/assets/images/student-example.png"
-              alt="Estudante do quadro de honra ou Destaque"
-            />
-            <figcaption>Melhor Aluno de Administração</figcaption>
-          </figure>
-        </div>
-      </article>
-    </section>
-    <aside id="login-aside">
-      <p>És aluno? <a href="/login.php">Iniciar sessão</a></p>
-    </aside>
-    <footer>
-      <address>
-        Luanda, Samba, Morro-Bento, na rua depois do IMETRO Contacto: +244 923
-        456 789 | contacto@gabnet.com
-      </address>
-      <p>
-        Instituto Médio Politécnico Gab do Saber
-        <br />&copy;2026 Todos os direitos reservados - Sistema GABnet
-      </p>
-    </footer>
-    <script src="/assets/js/script.js"></script>
+    <footer></footer>
   </body>
 </html>
