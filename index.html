@@ -8,30 +8,40 @@
       href="assets/images/favicon.ico"
       type="image/x-icon"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
     <title>GABnet Portal de Informações</title>
   </head>
   <body>
-    <header>
-      <a href="/index.html" class="logo-link">
-        <img
-          src="assets/images/gabnet-logo.png"
-          alt="Logo de GABnet"
-          class="logo"
-        />
-        <div class="logo-txt">
-          <strong>GABnet</strong>
-          <br />
-          <small>Portal de Informações Escolares</small>
-        </div>
-      </a>
-      <nav class="nav-bar">
-        <ul>
-          <li><a href="#about-section">Sobre</a></li>
-          <li><a href="#courses-section">Cursos</a></li>
-          <li><a href="#institution-section">Instituição</a></li>
-        </ul>
-      </nav>
-      <a href="login.php" class="login-button">Iniciar Sessão</a>
+    <header class="top-header">
+      <div class="container header-inner">
+        <a href="index.html" class="logo-link">
+          <div class="logo-wrap">
+            <img
+              src="assets/images/gabnet-logo.png"
+              alt="Logo de GABnet"
+              class="logo"
+            />
+            <div class="logo-txt">
+              <strong>GABnet</strong>
+              <small>Portal de Informações Escolares</small>
+            </div>
+          </div>
+        </a>
+        <nav class="nav-bar">
+          <ul>
+            <li><a href="#about-section">Sobre</a></li>
+            <li><a href="#courses-section">Cursos</a></li>
+            <li><a href="#institution-section">Instituição</a></li>
+          </ul>
+        </nav>
+        <a href="login.php" class="btn primary-btn"> Iniciar Sessão </a>
+      </div>
     </header>
     <main id="">
       <div class="container intro-container">
@@ -48,7 +58,7 @@
             </p>
           </article>
           <section class="intro-buttons">
-            <a href="login.php">
+            <a href="login.php" class="btn primary-btn">
               <svg
                 width="16"
                 height="16"
@@ -65,7 +75,7 @@
               </svg>
               Aceder ao portal
             </a>
-            <a href="#about-section">Saber mais</a>
+            <a href="#about-section" class="btn ghost-btn">Saber mais</a>
           </section>
         </section>
         <aside class="side-card-container" style="display: none">
@@ -103,7 +113,7 @@
         </header>
         <ul class="about-grid">
           <li class="about-card">
-            <span class="about-icon"><svg>...</svg></span>
+            <span class="about-icon info-icon"></span>
             <h3>Finalidade</h3>
             <p>
               Disponibilizar informação académica e institucional de forma
@@ -111,7 +121,7 @@
             </p>
           </li>
           <li class="about-card">
-            <span class="about-icon"><svg>...</svg></span>
+            <span class="about-icon info-icon"></span>
             <h3>Público-alvo</h3>
             <p>
               Destina-se a estudantes, professores e funcionários da
@@ -120,7 +130,7 @@
             </p>
           </li>
           <li class="about-card">
-            <span class="about-icon"><svg>...</svg></span>
+            <span class="about-icon info-icon"></span>
             <h3>Serviços disponíveis</h3>
             <p>
               Consulta de horários, comunicados institucionais, informações
@@ -190,6 +200,169 @@
         </ul>
       </div>
     </section>
-    <footer></footer>
+    <section id="institution-section">
+      <div class="container">
+        <header>
+          <span class="tag">Quem somos</span>
+          <h2>Instituto Politécnico Privado GAB do Saber</h2>
+          <p>
+            Uma instituição dedicada à formação técnica e profissional de
+            qualidade, comprometida com o desenvolvimento dos seus estudantes e
+            com o crescimento da comunidade onde está inserida.
+          </p>
+        </header>
+        <section class="institution-info">
+          <ul>
+            <li>
+              <span class="info-icon"><i></i></span>
+              <div class="institution-text">
+                <h3>Missão</h3>
+                <p>
+                  Formar profissionais competentes, éticos e responsáveis,
+                  prontos para os desafios do mercado de trabalho.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="info-icon"><i></i></span>
+              <div class="institution-text">
+                <h3>Visão</h3>
+                <p>
+                  Ser referência em educação técnica e profissional em Angola,
+                  pela qualidade e impacto social.
+                </p>
+              </div>
+            </li>
+            <li>
+              <span class="info-icon"><i></i></span>
+              <div class="institution-text">
+                <h3>Valores</h3>
+                <p>
+                  Ética, inovação, excelência e compromisso com a comunidade
+                  angolana.
+                </p>
+              </div>
+            </li>
+          </ul>
+        </section>
+        <section class="honor-role institutional">
+          <h3>Quadro de honras</h3>
+          <div class="honor-grid">
+            <figure class="honor-card">
+              <img src="assets/images/honor1.jpg" alt="Emmanuel Mateus" />
+              <figcaption>
+                <h4>Emmanuel Mateus</h4>
+                <p>Aluno de destaque em Informática</p>
+              </figcaption>
+            </figure>
+            <figure class="honor-card">
+              <img src="assets/images/honor2.jpg" alt="Maria Lisboa" />
+              <figcaption>
+                <h4>Maria Lisboa</h4>
+                <p>Aluna de destaque em Electricidade</p>
+              </figcaption>
+            </figure>
+            <figure class="honor-card">
+              <img src="assets/images/honor3.jpg" alt="Guilherme Alberto" />
+              <figcaption>
+                <h4>Guilherme Alberto</h4>
+                <p>Aluno de destaque em Contabilidade e Gestão</p>
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+        <section class="location institutional">
+          <h3>Localização</h3>
+          <figure class="location-card">
+            <img
+              src="assets/images/map.png"
+              alt="Localização do Instituto GAB do Saber"
+            />
+          </figure>
+        </section>
+      </div>
+    </section>
+    <section class="cta-band">
+      <div class="container cta-inner">
+        <div>
+          <h2>És aluno, professor ou <em>funcionário</em>?</h2>
+          <p>
+            Inicia sessão para aceder ao teu painel personalizado com horários,
+            comunicados e toda a informação académica.
+          </p>
+        </div>
+        <a href="login.php" class="btn primary-btn">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4"></path>
+            <polyline points="10 17 15 12 10 7"></polyline>
+            <line x1="15" y1="12" x2="3" y2="12"></line>
+          </svg>
+          Iniciar Sessão
+        </a>
+      </div>
+    </section>
+    <footer>
+      <div class="container">
+        <section class="footer-top">
+          <div class="footer-brand">
+            <div class="logo-wrap">
+              <img
+                src="assets/images/gabnet-logo.png"
+                alt="Logo de GABnet"
+                class="logo"
+              />
+              <div class="logo-txt">
+                <strong>GABnet</strong>
+                <br />
+                <small>Portal Escolar</small>
+              </div>
+            </div>
+            <p>
+              Sistema de consulta de informações escolares do Instituto
+              Politécnico Privado GAB do Saber (Unidade III), Luanda.
+            </p>
+          </div>
+
+          <nav class="footer-col footer-nav">
+            <h4>Navegação</h4>
+            <ul>
+              <li><a href="#about-section">Sobre o portal</a></li>
+              <li><a href="#courses-section">Cursos</a></li>
+              <li><a href="#institutional-section">Instituição</a></li>
+              <li><a href="login.php">Iniciar sessão</a></li>
+            </ul>
+          </nav>
+          <div class="footer-col">
+            <h4>Contacto</h4>
+            <address>
+              <p class="footer-contact-item">
+                Luanda, Samba, Morro-Bento, na rua depois do IMETRO
+              </p>
+              <p class="footer-contact-item">
+                <a href="tel:+244923456789">+244 923 456 789</a>
+              </p>
+              <p class="footer-contact-item">
+                <a href="mailto:contacto@gabnet.ao">contacto@gabnet.ao</a>
+              </p>
+            </address>
+          </div>
+        </section>
+        <section class="footer-bottom">
+          <p>
+            &copy; 2026 Instituto GAB do Saber. Todos os direitos reservados.
+          </p>
+          <p>Sistema GABnet - Desenvolvido para o TCC 2025-2026</p>
+        </section>
+      </div>
+    </footer>
   </body>
 </html>

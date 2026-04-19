@@ -1,14 +1,152 @@
-.invisible {
-  display: none;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
+:root {
+  --blue: #0b3d91; /* azul institucional fundo */
+  --blue-m: #1457c8; /* azul médio botões */
+  --blue-c: #5b8def; /* azul claro destaque */
+  --yellow: #f5b800; /* amarelo GAB do Saber */
+  --yellow-s: #ffcf40; /* amarelo suave hover */
+  --white: #ffffff;
+  --gray-bg: #f4f6fa;
+  --gray-2: #e8ecf4;
+  --gray-txt: #5a6478;
+  --txt-dark: #0d1b35;
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow: 0 4px 24px rgba(11, 61, 145, 0.1);
+}
+body {
+  font-family: "Sora", sans-serif;
+  background: var(--white);
+  color: var(--txt-dark);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+ul {
+  list-style: none;
+}
+.container {
+  width: 95%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.top-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--blue);
+  border-bottom: 2px solid var(--yellow);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-wrap img {
+  width: 65px;
+  height: 65px;
+  color: var(--white);
+}
+.logo-txt {
+  color: var(--white);
+}
+.logo-txt > strong {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+.logo-txt > small {
+  font-size: 0.65rem;
+  font-weight: 400;
+  opacity: 0.65;
+  letter-spacing: 0.04em;
+}
+nav ul {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+nav a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.15s;
+  position: relative;
+}
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--yellow);
+  transition: width 0.2s;
+}
+nav a:hover {
+  color: var(--white);
+}
+nav a:hover::after {
+  width: 100%;
 }
 
-.visible {
-  display: block;
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 28px;
+  border-radius: var(--radius);
+  font-family: "Sora", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition-duration: 0.18s;
 }
-/*PENDING!!*/
-#honor-roll-images {
-  display: flex;
+.btn:hover {
+  transform: translateY(-2px);
 }
-#honor-roll-images img {
-  width: 200px;
+.btn:active {
+  transform: translateY(0);
+}
+.primary-btn {
+  background: var(--yellow);
+  color: var(--blue);
+  box-shadow: 0 4px 16px rgba(245, 184, 0, 0.35);
+}
+.primary-btn:hover {
+  background: var(--yellow-s);
+  box-shadow: 0 6px 22px rgba(245, 184, 0, 0.45);
+}
+.ghost-btn {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+}
+.ghost-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.7);
 }
