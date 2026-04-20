@@ -14,6 +14,10 @@
       href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap"
       rel="stylesheet"
     />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@100..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <title>GABnet Portal de Informações</title>
   </head>
@@ -43,20 +47,20 @@
         <a href="login.php" class="btn primary-btn"> Iniciar Sessão </a>
       </div>
     </header>
-    <main id="">
+    <main id="intro-section" class="intro">
       <div class="container intro-container">
         <section class="intro-content">
           <span class="intro-label">
             <p>Instituto Politécnico Privado GAB do Saber</p>
           </span>
-          <article class="intro-article">
+          <section class="intro-header">
             <h1>A informação da <em>tua escola</em>, sempre disponível</h1>
             <p>
               O GABnet centraliza horários, comunicados e informações académicas
               num único portal — acessível a alunos, professores e encarregados
               de educação, em qualquer momento.
             </p>
-          </article>
+          </section>
           <section class="intro-buttons">
             <a href="login.php" class="btn primary-btn">
               <svg
@@ -78,7 +82,7 @@
             <a href="#about-section" class="btn ghost-btn">Saber mais</a>
           </section>
         </section>
-        <aside class="side-card-container" style="display: none">
+        <aside class="side-card-container">
           <div class="side-card">
             <div class="side-stat">
               <strong>3</strong>
@@ -100,7 +104,7 @@
         </aside>
       </div>
     </main>
-    <section id="about-section">
+    <section id="about-section" class="about">
       <div class="container">
         <header class="section-header">
           <span class="tag">Sobre o portal</span>
@@ -113,7 +117,13 @@
         </header>
         <ul class="about-grid">
           <li class="about-card">
-            <span class="about-icon info-icon"></span>
+            <span class="about-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                <polyline points="2 17 12 22 22 17" />
+                <polyline points="2 12 12 17 22 12" />
+              </svg>
+            </span>
             <h3>Finalidade</h3>
             <p>
               Disponibilizar informação académica e institucional de forma
@@ -121,7 +131,14 @@
             </p>
           </li>
           <li class="about-card">
-            <span class="about-icon info-icon"></span>
+            <span class="about-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 00-3-3.87" />
+                <path d="M16 3.13a4 4 0 010 7.75" />
+              </svg>
+            </span>
             <h3>Público-alvo</h3>
             <p>
               Destina-se a estudantes, professores e funcionários da
@@ -130,7 +147,13 @@
             </p>
           </li>
           <li class="about-card">
-            <span class="about-icon info-icon"></span>
+            <span class="about-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="2" />
+                <path d="M3 9h18" />
+                <path d="M9 21V9" />
+              </svg>
+            </span>
             <h3>Serviços disponíveis</h3>
             <p>
               Consulta de horários, comunicados institucionais, informações
@@ -140,7 +163,7 @@
         </ul>
       </div>
     </section>
-    <section id="courses-section">
+    <section id="courses-section" class="courses">
       <div class="container">
         <header class="section-header">
           <span class="tag">Formação técnica</span>
@@ -152,7 +175,7 @@
         </header>
         <ul class="courses-grid">
           <li class="course-card">
-            <div class="course-thumb">
+            <div class="course-thumb info">
               <img src="assets/images/course1.jpg" alt="Curso de Informática" />
               <span class="course-badge">Técnico</span>
             </div>
@@ -166,7 +189,7 @@
             </div>
           </li>
           <li class="course-card">
-            <div class="course-thumb">
+            <div class="course-thumb elec">
               <img
                 src="assets/images/course2.jpg"
                 alt="Curso de Electricidade"
@@ -182,7 +205,7 @@
             </div>
           </li>
           <li class="course-card">
-            <div class="course-thumb">
+            <div class="course-thumb cont">
               <img
                 src="assets/images/course3.jpg"
                 alt="Curso de Contabilidade e Gestão"
@@ -200,90 +223,112 @@
         </ul>
       </div>
     </section>
-    <section id="institution-section">
-      <div class="container">
-        <header>
-          <span class="tag">Quem somos</span>
-          <h2>Instituto Politécnico Privado GAB do Saber</h2>
-          <p>
-            Uma instituição dedicada à formação técnica e profissional de
-            qualidade, comprometida com o desenvolvimento dos seus estudantes e
-            com o crescimento da comunidade onde está inserida.
-          </p>
-        </header>
-        <section class="institution-info">
-          <ul>
-            <li>
-              <span class="info-icon"><i></i></span>
-              <div class="institution-text">
-                <h3>Missão</h3>
-                <p>
-                  Formar profissionais competentes, éticos e responsáveis,
-                  prontos para os desafios do mercado de trabalho.
-                </p>
-              </div>
-            </li>
-            <li>
-              <span class="info-icon"><i></i></span>
-              <div class="institution-text">
-                <h3>Visão</h3>
-                <p>
-                  Ser referência em educação técnica e profissional em Angola,
-                  pela qualidade e impacto social.
-                </p>
-              </div>
-            </li>
-            <li>
-              <span class="info-icon"><i></i></span>
-              <div class="institution-text">
-                <h3>Valores</h3>
-                <p>
-                  Ética, inovação, excelência e compromisso com a comunidade
-                  angolana.
-                </p>
-              </div>
-            </li>
-          </ul>
+    <section id="institution-section" class="institucional">
+      <div class="container institutional-container">
+        <section class="inst-section-1">
+          <header class="institutional-header">
+            <span class="tag">Quem somos</span>
+            <h2>Instituto Politécnico Privado GAB do Saber</h2>
+            <p>
+              Uma instituição dedicada à formação técnica e profissional de
+              qualidade, comprometida com o desenvolvimento dos seus estudantes
+              e com o crescimento da comunidade onde está inserida.
+            </p>
+          </header>
+          <section class="institution-info">
+            <ul class="inst-list">
+              <li class="inst-item">
+                <span class="info-icon">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                  </svg>
+                </span>
+                <div class="institution-text">
+                  <h3>Missão</h3>
+                  <p>
+                    Formar profissionais competentes, éticos e responsáveis,
+                    prontos para os desafios do mercado de trabalho.
+                  </p>
+                </div>
+              </li>
+              <li class="inst-item">
+                <span class="info-icon">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path
+                      d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"
+                    />
+                  </svg>
+                </span>
+                <div class="institution-text">
+                  <h3>Visão</h3>
+                  <p>
+                    Ser referência em educação técnica e profissional em Angola,
+                    pela qualidade e impacto social.
+                  </p>
+                </div>
+              </li>
+              <li class="inst-item">
+                <span class="info-icon">
+                  <svg viewBox="0 0 24 24">
+                    <polygon
+                      points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
+                    />
+                  </svg>
+                </span>
+                <div class="institution-text">
+                  <h3>Valores</h3>
+                  <p>
+                    Ética, inovação, excelência e compromisso com a comunidade
+                    angolana.
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </section>
         </section>
-        <section class="honor-role institutional">
-          <h3>Quadro de honras</h3>
-          <div class="honor-grid">
-            <figure class="honor-card">
-              <img src="assets/images/honor1.jpg" alt="Emmanuel Mateus" />
-              <figcaption>
-                <h4>Emmanuel Mateus</h4>
-                <p>Aluno de destaque em Informática</p>
-              </figcaption>
+        <section class="inst-section-2">
+          <section class="honor-role">
+            <h3>Quadro de honras</h3>
+            <div class="honor-grid">
+              <figure class="honor-card">
+                <img src="assets/images/honor1.jpg" alt="Emmanuel Mateus" />
+                <figcaption>
+                  <h4>Emmanuel Mateus</h4>
+                  <p>Aluno destaque em Informática</p>
+                </figcaption>
+              </figure>
+              <figure class="honor-card">
+                <img src="assets/images/honor2.jpg" alt="Maria Lisboa" />
+                <figcaption>
+                  <h4>Maria Lisboa</h4>
+                  <p>Aluna destaque em Electricidade</p>
+                </figcaption>
+              </figure>
+              <figure class="honor-card">
+                <img src="assets/images/honor3.jpg" alt="Guilherme Alberto" />
+                <figcaption>
+                  <h4>Guilherme Alberto</h4>
+                  <p>Aluno destaque em Contabilidade e Gestão</p>
+                </figcaption>
+              </figure>
+            </div>
+          </section>
+          <section class="location">
+            <h3>Localização</h3>
+            <figure class="location-card">
+              <img
+                src="assets/images/map.png"
+                alt="Localização do Instituto GAB do Saber"
+              />
             </figure>
-            <figure class="honor-card">
-              <img src="assets/images/honor2.jpg" alt="Maria Lisboa" />
-              <figcaption>
-                <h4>Maria Lisboa</h4>
-                <p>Aluna de destaque em Electricidade</p>
-              </figcaption>
-            </figure>
-            <figure class="honor-card">
-              <img src="assets/images/honor3.jpg" alt="Guilherme Alberto" />
-              <figcaption>
-                <h4>Guilherme Alberto</h4>
-                <p>Aluno de destaque em Contabilidade e Gestão</p>
-              </figcaption>
-            </figure>
-          </div>
-        </section>
-        <section class="location institutional">
-          <h3>Localização</h3>
-          <figure class="location-card">
-            <img
-              src="assets/images/map.png"
-              alt="Localização do Instituto GAB do Saber"
-            />
-          </figure>
+          </section>
         </section>
       </div>
     </section>
     <section class="cta-band">
-      <div class="container cta-inner">
+      <div class="container cta-band-inner">
         <div>
           <h2>És aluno, professor ou <em>funcionário</em>?</h2>
           <p>
@@ -322,7 +367,6 @@
               />
               <div class="logo-txt">
                 <strong>GABnet</strong>
-                <br />
                 <small>Portal Escolar</small>
               </div>
             </div>
@@ -345,12 +389,27 @@
             <h4>Contacto</h4>
             <address>
               <p class="footer-contact-item">
+                <svg viewBox="0 0 24 24">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
                 Luanda, Samba, Morro-Bento, na rua depois do IMETRO
               </p>
               <p class="footer-contact-item">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.68A2 2 0 012 .93h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
+                  />
+                </svg>
                 <a href="tel:+244923456789">+244 923 456 789</a>
               </p>
               <p class="footer-contact-item">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                  />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
                 <a href="mailto:contacto@gabnet.ao">contacto@gabnet.ao</a>
               </p>
             </address>
