@@ -41,6 +41,7 @@ a {
 ul {
   list-style: none;
 }
+/* Landing Page */
 .container {
   width: 95%;
   max-width: 1100px;
@@ -97,19 +98,21 @@ ul {
   opacity: 0.65;
   letter-spacing: 0.04em;
 }
-nav ul {
+.nav-bar ul {
   display: flex;
   align-items: center;
   gap: 28px;
 }
-nav a {
+.nav-bar a,
+.footer-nav a {
   font-size: 0.85rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.75);
   transition-duration: 0.15s;
   position: relative;
 }
-nav a:hover {
+.nav-bar a:hover,
+.footer-nav a:hover {
   color: var(--white);
 }
 .nav-bar a::after {
@@ -129,6 +132,7 @@ nav a:hover {
 .btn {
   display: inline-flex;
   align-items: center;
+  text-align: center;
   gap: 8px;
   padding: 13px 28px;
   border-radius: var(--radius);
@@ -379,6 +383,12 @@ nav a:hover {
 .course-thumb.cont {
   background-image: linear-gradient(135deg, #065f46 0%, #059669 100%);
 }
+.course-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
 .course-badge {
   position: absolute;
   top: 12px;
@@ -518,6 +528,7 @@ nav a:hover {
   margin-bottom: 6px;
   background-color: var(--gray-txt);
   color: var(--white);
+  border: 1px solid var(--gray-2);
 }
 .honor-card h4 {
   font-size: 0.82rem;
@@ -575,7 +586,7 @@ nav a:hover {
   margin-top: 8px;
   max-width: 480px;
 }
-footer {
+.landing-footer {
   background: var(--txt-dark);
   color: rgba(255, 255, 255, 0.75);
   padding: 52px 0 28px;
@@ -657,3 +668,13 @@ footer {
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.35);
 }
+
+@keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .intro-content { animation: fadeUp .7s ease both; }
+    .side-card    { animation: fadeUp .7s .15s ease both; }
+    .about-card   { animation: fadeUp .5s ease both; }
+    .about-card:nth-child(2) { animation-delay: .08s; }
+    .about-card:nth-child(3) { animation-delay: .16s; }
