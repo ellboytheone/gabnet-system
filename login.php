@@ -1,83 +1,36 @@
- 
-
 <?php
+  session_start();
+  if (isset($_SESSION['usuario_id'])) {
+      switch ($_SESSION['papel']) {
+          case 'Administrador': header('Location: dashboard/adm/index.php');       exit;
+          case 'Professor':     header('Location: dashboard/professor/index.php'); exit;
+          case 'Estudante':     header('Location: dashboard/aluno/index.php');     exit;
+      }
+  }
 
-/*
-session_start();
-if (isset($_SESSION['usuario_id'])) {
-    switch ($_SESSION['papel']) {
-        case 'Administrador': header('Location: dashboard/adm/index.php');       exit;
-        case 'Professor':     header('Location: dashboard/professor/index.php'); exit;
-        case 'Estudante':     header('Location: dashboard/aluno/index.php');     exit;
-    }
-} 
-
-/* ── 2. Ligação à base de dados ──────────────────────────────── 
-require_once 'config/db.php';
-/*
-   Conteúdo esperado de config/db.php:
-   -------------------------------------------------------
-   
-   $host   = 'localhost';
-   $dbname = 'gabnet_system';
-   $user   = 'root';
-   $pass   = '';
-
-   try {
-       $pdo = new PDO(
-           "mysql:host=$host;dbname=$dbname;charset=utf8mb4",
-           $user, $pass,
-           [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC]
-       );
-   } catch (PDOException $e) {
-       die('Erro de ligação: ' . $e->getMessage());
-   }
-   ------------------------------------------------------- */
-
-$error     = '';
-$email_val = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $email_value = '';
+  $error = '';
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
     $password = trim($_POST['password'] ?? '');
     if (empty($email) || empty($password)) {
-        $error = 'Por favor, preenche o email e a password.';
+
+      $error = 'Por favor, preencha o email e a senha.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'O formato do email não é válido.';
+      $email_value = $email ?? '';
+      $error = 'O formato do email não é válido.';
     } else {
-
-        $stmt = $pdo->prepare('
-            SELECT id, nome, email, password, papel, status
-            FROM usuario
-            WHERE email = ?
-            LIMIT 1
-        ');
-        $stmt->execute([$email]);
-        $usuario = $stmt->fetch();
-
-        if (!$usuario || !password_verify($password, $usuario['password'])) {
-            $error = 'Email ou password incorrectos. Verifica os dados e tenta novamente.';
-            $email_val = htmlspecialchars($email);
-        } else {
-            session_regenerate_id(true); 
-
-            $_SESSION['usuario_id'] = $usuario['id'];
-            $_SESSION['nome']       = $usuario['nome'];
-            $_SESSION['email']      = $usuario['email'];
-            $_SESSION['papel']      = $usuario['papel'];
-
-            switch ($usuario['papel']) {
-                case 'Administrador': header('Location: dashboard/adm/index.php');       exit;
-                case 'Professor':     header('Location: dashboard/professor/index.php'); exit;
-                case 'Estudante':     header('Location: dashboard/aluno/index.php');     exit;
-                default:
-                    $error = 'Tipo de conta não reconhecido. Contacta o administrador.';
-            }
-        }
+      $email_value = $email ?? '';
+      switch ($email) {
+        case 'admin@gabnet.ao': header('Location: dashboard/adm/index.php'); exit;
+        case 'professor@gabnet.ao': header('Location: dashboard/professor/index.php'); exit;
+        case 'aluno@gabnet.ao': header('Location: dashboard/aluno/index.php'); exit;
+        default: $error = 'Email ou senha inválidos.';
+      }
     }
-}
+  }
 ?>
+
 <!doctype html>
 <html lang="pt-PT">
   <head>
@@ -100,24 +53,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     />
     <link rel="stylesheet" href="assets/css/auth.css" />
     <link rel="stylesheet" href="assets/css/styles.css" />
-    <title>GABnet Portal de Informações</title>
+    <title>Iniciar Sessão - GABnet</title>
   </head>
   <body>
     <section class="left-panel">
       <div class="grid-bg"></div>
-      <span class="left-logo">
+      <figure class="left-logo">
           <div class="logo-wrap">
             <img
               src="assets/images/gabnet-logo.png"
               alt="Logo de GABnet"
               class="logo"
             />
-            <div class="logo-txt">
+            <figcaption class="logo-txt">
               <strong>GABnet</strong>
               <small>Portal de Informações Escolares</small>
-            </div>
+            </figcaption>
           </div>
-      </span>
+      </figure>
       <section class="left-copy">
         <span class="eyebrow">Instituto GAB do Saber</span>
         <h1>A tua escola,<br><em>sempre consigo</em></h1>
@@ -175,21 +128,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Voltar ao portal
       </a>
       <section class="form-head">
-        <span class="tag">Área restrita</span>
         <h2>Iniciar sessão</h2>
         <p>Introduz as tuas credenciais para aceder ao teu painel pessoal.</p>
       </section>
       <?php if (!empty($error)): ?>
-        <div class="alert alert-error" role="alert" aria-live="assertive">
-          <svg viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-          <span><?= $error?></span>
-        </div>
+      <div class="alert alert-error" role="alert" aria-live="assertive">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <span><?= $error ?></span>
+      </div>
       <?php endif; ?>
-      <form method="POST" action="auth/login-auth.php" id="login-form">
+      <form method="POST" action="login.php" id="login-form" novalidate>
         <div class="form-body">
           <div class="field">
             <label for="email">
@@ -204,11 +156,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 type="email"
                 id="email"
                 name="email"
-                value="<?= htmlspecialchars($email_val) ?>"
+                value="<?= htmlspecialchars($email_value) ?>"
                 placeholder="exemplo@gabnet.ao"
                 autocomplete="email"
                 required
-                <?= !empty($error) ? 'class="error"' : '' ?>
+                onfocus="markError(this.id, false)"
               />
             </div>
           </div>
@@ -228,14 +180,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 placeholder="A tua senha"
                 autocomplete="current-password"
                 required
-                <?= !empty($error) ? 'class="error"' : '' ?>
+                onfocus="markError(this.id, false)"
               />
-              <button"
+              <button
                 type="button"
                 class="toggle-password"
                 id="toggle-password"
                 aria-label="Mostrar ou ocultar senha"
-                onclick="togglePassword()"
+                onclick="togglePassword('password', 'toggle-password')"
               >
                 <svg id="icon-eye" viewBox="0 0 24 24">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -265,92 +217,59 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <section class="perfis-info">
         <ul>
           <li class="perfil-pill">
-            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
             <small>Aluno</small>
           </li>
           <li class="perfil-pill">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+              <path d="M16 3.13a4 4 0 010 7.75"/>
+            </svg>
             <small>Professor</small>
           </li>
           <li class="perfil-pill">
-            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <svg viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
             <small>Administrador</small>
           </li>
         </ul>
       </section>
-
-      <!-- Rodapé do formulário -->
       <footer class="form-footer" style="margin-top:24px;">
         <p>
-          Problemas com o acesso?
-          <strong>Contacta a secretaria da escola</strong>
+          Ainda não te registraste?
+          <a href="register.php">Registra-te</a>
         </p>
       </footer>
-      <script src="assets/js/auth.js">
-        <?php if (!empty($error)): ?>
-          document.getElementById('password').value = '';
-          document.getElementById('email').focus();
-        <?php else: ?>
-          document.getElementById('email').focus();
-        <?php endif; ?>
-      </script>
-    </main>
+      <script src="assets/js/script.js"></script>
+      <script>
+        document.getElementById("login-form").addEventListener("submit", function (e) {
+          const email = document.getElementById("email").value.trim();
+          const password = document.getElementById("password").value.trim();
 
+          if (!email || !password) {
+            e.preventDefault();
+            markError("email", !email);
+            markError("password", !password);
+            return;
+          }
 
-    <!-- ── JavaScript ─────────────────────────────────────────────── -->
-    <script>
-      /* Mostrar / ocultar senha */
-      function toggleSenha() {
-        const input   = document.getElementById('senha');
-        const eyeOn   = document.getElementById('icon-eye');
-        const eyeOff  = document.getElementById('icon-eye-off');
-        const visivel = input.type === 'password';
-        input.type    = visivel ? 'text' : 'password';
-        eyeOn.style.display  = visivel ? 'none'  : 'block';
-        eyeOff.style.display = visivel ? 'block' : 'none';
-      }
-
-      /* Estado loading no botão ao submeter */
-      document.getElementById('login-form').addEventListener('submit', function (e) {
-        const email = document.getElementById('email').value.trim();
-        const senha = document.getElementById('senha').value.trim();
-
-        /* Validação client-side rápida antes de enviar */
-        if (!email || !senha) {
-          e.preventDefault();
-          marcarErro('email', !email);
-          marcarErro('senha', !senha);
-          return;
-        }
-
-        /* Activa estado de loading */
-        const btn = document.getElementById('btn-login');
-        btn.classList.add('loading');
-        btn.setAttribute('disabled', 'true');
-      });
-
-      function marcarErro(id, temErro) {
-        const el = document.getElementById(id);
-        if (temErro) el.classList.add('erro');
-        else         el.classList.remove('erro');
-      }
-
-      /* Remove classe de erro ao começar a escrever */
-      ['email', 'senha'].forEach(function (id) {
-        document.getElementById(id).addEventListener('input', function () {
-          this.classList.remove('erro');
+          const btn = document.getElementById("btn-login");
+          btn.classList.add("loading");
+          btn.setAttribute("disabled", "true");
         });
-      });
 
-      /* Auto-foco no primeiro campo com erro, ou no email */
-      <?php if (!empty($erro)): ?>
-        document.getElementById('senha').value = '';
-        document.getElementById('email').focus();
-      <?php else: ?>
-        document.getElementById('email').focus();
-      <?php endif; ?>
-    </script>
-
+        function markError(id, thereIsError) {
+          const el = document.getElementById(id);
+          if (thereIsError) el.classList.add("error");
+          else el.classList.remove("error");
+        }
+      </script>
     </main>
   </body>
 </html>

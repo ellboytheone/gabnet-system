@@ -9,11 +9,11 @@ html {
   scroll-behavior: smooth;
 }
 :root {
-  --blue: #0b3d91; /* azul institucional fundo */
-  --blue-m: #1457c8; /* azul médio botões */
-  --blue-c: #5b8def; /* azul claro destaque */
-  --yellow: #f5b800; /* amarelo GAB do Saber */
-  --yellow-s: #ffcf40; /* amarelo suave hover */
+  --blue: #0b3d91;
+  --blue-m: #1457c8;
+  --blue-c: #5b8def;
+  --yellow: #f5b800;
+  --yellow-s: #ffcf40;
   --white: #ffffff;
   --gray-bg: #f4f6fa;
   --gray-2: #e8ecf4;
@@ -34,12 +34,21 @@ img {
   display: block;
   max-width: 100%;
 }
+button {
+  font-family: "Sora", sans-serif;
+  cursor: pointer;
+}
 a {
   color: inherit;
   text-decoration: none;
 }
-ul {
+ul,
+ol {
   list-style: none;
+}
+svg {
+  width: 14px;
+  height: 14px;
 }
 /* Landing Page */
 .container {
@@ -668,13 +677,61 @@ ul {
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.35);
 }
-
+.intro-content {
+  animation: fadeUp 0.7s ease both;
+}
+.side-card {
+  animation: fadeUp 0.7s 0.15s ease both;
+}
+.about-card {
+  animation: fadeUp 0.5s ease both;
+}
+.about-card:nth-child(2) {
+  animation-delay: 0.08s;
+}
+.about-card:nth-child(3) {
+  animation-delay: 0.16s;
+}
 @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .intro-content { animation: fadeUp .7s ease both; }
-    .side-card    { animation: fadeUp .7s .15s ease both; }
-    .about-card   { animation: fadeUp .5s ease both; }
-    .about-card:nth-child(2) { animation-delay: .08s; }
-    .about-card:nth-child(3) { animation-delay: .16s; }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-6px);
+  }
+  40% {
+    transform: translateX(5px);
+  }
+  60% {
+    transform: translateX(-4px);
+  }
+  80% {
+    transform: translateX(3px);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
