@@ -85,7 +85,7 @@
       </section>
 
       <?php if (!empty($msg)): ?>
-      <div class="reg-alert reg-alert-<?= $msg_tipo ?>">
+      <div class="reg-alert reg-alert-<?= $msg_type ?>">
         <svg viewBox="0 0 24 24">
           <?php if ($msg_tipo==='ok'): ?><polyline points="20 6 9 17 4 12"/>
           <?php else: ?><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
