@@ -22,9 +22,9 @@
     } else {
       $email_value = $email ?? '';
       switch ($email) {
-        case 'admin@gabnet.ao': header('Location: dashboard/adm/index.php'); exit;
-        case 'professor@gabnet.ao': header('Location: dashboard/professor/index.php'); exit;
-        case 'aluno@gabnet.ao': header('Location: dashboard/aluno/index.php'); exit;
+        case 'admin@gabnet.ao': header('Location: dashboard/admin/index.php'); exit;
+        case 'professor@gabnet.ao': header('Location: dashboard/teacher/index.php'); exit;
+        case 'aluno@gabnet.ao': header('Location: dashboard/student/index.php'); exit;
         default: $error = 'Email ou senha inválidos.';
       }
     }

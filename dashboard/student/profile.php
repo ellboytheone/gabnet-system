@@ -62,7 +62,7 @@
     />
     <link rel="stylesheet" href="/gabnet-system/assets/css/dashboard.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
-    <title>Horário - GABnet</title>
+    <title>Meu Perfil - GABnet</title>
   </head>
   <body>
     <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -99,7 +99,7 @@
           Comunicados
           <span class="nav-badge"><?= count(array_filter($comunicados, fn($c) => $c['importancia'] === 'Alta')) ?></span>
         </a>
-        <a href="schedule.php" class="nav-link active">
+        <a href="schedule.php" class="nav-link">
           <svg viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
@@ -108,7 +108,7 @@
           </svg>
           Horário
         </a>
-        <a href="profile.php" class="nav-link">
+        <a href="profile.php" class="nav-link active">
           <svg viewBox="0 0 24 24">
             <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
             <circle cx="12" cy="7" r="4"/>
@@ -138,12 +138,12 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; Dashboard &rsaquo; <strong>Horário</strong>
+            GABnet &rsaquo; Dashboard &rsaquo; <strong>Meu Perfil</strong>
           </div>
         </section>
         <section class="topbar-right">
           <div class="topbar-date">
-            <?= date('d/m/Y') ?>
+            <?= date("d/m/Y") ?>
           </div>
           <a href="profile.php">
             <div class="topbar-avatar">
