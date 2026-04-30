@@ -92,9 +92,9 @@ function aula_status(string $ini, string $fim, int $agora): string {
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
     <title>Meu Painel - GABnet</title>
   </head>
-  <body>
+  <body class="student">
     <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
-    <aside class="sidebar" id="sidebar">
+    <aside class="sidebar student" id="sidebar">
       <div class="sidebar-logo">
         <img
           src="/gabnet-system/assets/images/gabnet-logo.png"
@@ -104,6 +104,20 @@ function aula_status(string $ini, string $fim, int $agora): string {
         <div class="logo-txt">
           <strong>GABnet</strong>
           <small>Portal Escolar</small>
+        </div>
+      </div>
+      <div class="id-card student">
+        <div class="avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
+        <div class="id-info">
+          <strong><?= htmlspecialchars($aluno['nome']) ?></strong>
+          <small><?= htmlspecialchars($aluno['classe']) ?></small>
+          <div class="id-badge">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            Estudante
+          </div>
         </div>
       </div>
       <span class="nav-section">
@@ -166,7 +180,7 @@ function aula_status(string $ini, string $fim, int $agora): string {
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; <strong>Dashboard</strong>
+            GABnet &rsaquo; <strong>Painel de Estudante</strong>
           </div>
         </section>
         <section class="topbar-right">
@@ -174,7 +188,7 @@ function aula_status(string $ini, string $fim, int $agora): string {
             <?= date('d/m/Y') ?>
           </div>
           <a href="profile.php">
-            <div class="topbar-avatar">
+            <div class="topbar-avatar student">
               <?= strtoupper(substr($aluno['nome'], 0, 1)) ?? 'E' ?>
             </div>
           </a>
@@ -189,7 +203,7 @@ function aula_status(string $ini, string $fim, int $agora): string {
           <h1><?= $saud ?>, <em><?= htmlspecialchars(explode(' ', $aluno['nome'])[0]) ?></em></h1>
           <p>Hoje é <?= $hoje ?> Tens <?= count($aulas_hoje) ?> aulas programadas para hoje.</p>
         </section>
-        <section class="stats-grid">
+        <section class="stats-grid student">
           <div class="stat-card">
             <div class="stat-icon blue">
               <svg viewBox="0 0 24 24">
@@ -336,11 +350,6 @@ function aula_status(string $ini, string $fim, int $agora): string {
         </section>
       </main>
     </div>
-    <script>
-      function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('overlay').classList.toggle('open');
-      }
-    </script>
+    <script src="/gabnet-system/assets/js/dashboard.js"></script>
   </body>
 </html>

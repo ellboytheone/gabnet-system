@@ -1,7 +1,8 @@
 :root {
   --orange: #b45309;
   --orange-bg: #fef3c7;
-
+  --sb-bg-t: #07251a;
+  --green-dim: rgba(18, 160, 106, 0.18);
   --bg2: #e8edf7;
   --sidebar-w: 240px;
   --header-h: 70px;
@@ -29,6 +30,9 @@ body {
   z-index: 200;
   transition-duraton: 0.3s;
 }
+.teacher .sidebar {
+  background-color: var(--sb-bg-t);
+}
 .sidebar-logo {
   display: flex;
   align-items: center;
@@ -54,6 +58,65 @@ body {
   font-size: 0.65rem;
   opacity: 0.55;
   letter-spacing: 0.04em;
+}
+.id-card {
+  margin: 14px 14px 4px;
+  background-color: var(--green-dim);
+  border: 1px solid rgba(18, 160, 106, 0.25);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.avatar-lg {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: var(--green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "DM Serif Display", serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  flex-shrink: 0;
+}
+.id-info strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.2;
+  max-width: 148px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.id-info small {
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+}
+.id-badge {
+  margin-top: 5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: rgba(18, 160, 106, 0.25);
+  border: 1px solid rgba(18, 160, 106, 0.35);
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: #5de8ae;
+  letter-spacing: 0.04em;
+}
+.id-badge svg {
+  width: 9px;
+  height: 9px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
 }
 .nav-section {
   padding: 6px 12px 4px;
@@ -101,6 +164,14 @@ body {
 }
 .nav-link.active svg {
   stroke: var(--blue);
+}
+.teacher .nav-link.active {
+  background-color: var(--yellow);
+  color: var(--green);
+  font-weight: 600;
+}
+.teacher .nav-link.active svg {
+  stroke: var(--green);
 }
 .nav-badge {
   margin-left: auto;
@@ -226,6 +297,9 @@ body {
   color: var(--yellow);
   cursor: pointer;
 }
+.teacher .topbar-avatar{
+  background-color: var(--sb-bg-t);
+}
 .content {
   background-color: var(--bg2);
   flex: 1;
@@ -247,6 +321,10 @@ body {
   color: var(--blue-m);
   font-style: italic;
 }
+.teacher .greeting h1 em {
+  color: var(--green);
+  font-style: italic;
+}
 .greeting p {
   font-size: 0.85rem;
   color: var(--txt-2);
@@ -256,6 +334,9 @@ body {
   grid-template-columns: 1fr 1fr;
   gap: 14px;
   margin-bottom: 26px;
+}
+.teacher .stats-grid{
+  grid-template-columns: repeat(4, 1fr);
 }
 .stat-card {
   background-color: var(--white);
@@ -273,6 +354,12 @@ body {
 }
 .stat-card:nth-child(2) {
   animation-delay: 0.1s;
+}
+.stat-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.stat-card:nth-child(4) {
+  animation-delay: 0.2s;
 }
 .stat-card:hover {
   box-shadow: var(--shadow-md);
@@ -635,7 +722,6 @@ body {
 .sidebar-overlay.open {
   display: block;
 }
-
 
 @media (max-width: 1100px) {
   .stats-grid {

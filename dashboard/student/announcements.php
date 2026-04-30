@@ -64,7 +64,7 @@
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
     <title>Comunicados - GABnet</title>
   </head>
-  <body>
+  <body class="student">
     <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
@@ -76,6 +76,20 @@
         <div class="logo-txt">
           <strong>GABnet</strong>
           <small>Portal Escolar</small>
+        </div>
+      </div>
+      <div class="id-card student">
+        <div class="avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
+        <div class="id-info">
+          <strong><?= htmlspecialchars($aluno['nome']) ?></strong>
+          <small><?= htmlspecialchars($aluno['classe']) ?></small>
+          <div class="id-badge">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+            Estudante
+          </div>
         </div>
       </div>
       <span class="nav-section">
@@ -138,7 +152,7 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; Dashboard &rsaquo; <strong>Comunicados</strong>
+            GABnet &rsaquo; Painel de Estudante &rsaquo; <strong>Comunicados</strong>
           </div>
         </section>
         <section class="topbar-right">

@@ -184,6 +184,7 @@ svg {
   border-color: rgba(255, 255, 255, 0.7);
 }
 .intro {
+  height: calc(100vh - 92.99px);
   background-color: var(--blue);
   padding: 90px 0 80px;
   position: relative;

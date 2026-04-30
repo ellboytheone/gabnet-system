@@ -86,7 +86,7 @@
     />
     <link rel="stylesheet" href="/gabnet-system/assets/css/dashboard.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
-    <title>Horario Completo - GABnet</title>
+    <title>Solicitar Anúncio - GABnet</title>
   </head>
   <body class="teacher">
     <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -129,7 +129,7 @@
           </svg>
           Dashboard
         </a>
-        <a href="schedule.php" class="nav-link active">
+        <a href="schedule.php" class="nav-link">
           <svg viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2"/>
             <line x1="16" y1="2" x2="16" y2="6"/>
@@ -138,7 +138,7 @@
           </svg>
           Horário Completo
         </a>
-        <a href="announce.php" class="nav-link">
+        <a href="announce.php" class="nav-link active">
           <svg viewBox="0 0 24 24">
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
@@ -175,7 +175,7 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; Painel de Professor &rsaquo; <strong>Horario Completo</strong>
+            GABnet &rsaquo; Painel de Professor &rsaquo; <strong>Solicitar Anúncio</strong>
           </div>
         </section>
         <section class="topbar-right">
@@ -190,7 +190,7 @@
         </section>
       </header>
       <main class="content">
-        
+
       </main>
     </div>
     <script src="/gabnet-system/assets/js/dashboard.js"></script>
