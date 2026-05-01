@@ -255,6 +255,100 @@
             </div>
           </div>
         </section>
+        <section class="main-grid">
+          <div class="left-col">
+            <section class="panel" style="animation-delay:.25s">
+              <div class="panel-header">
+                <h2 class="panel-title">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  Horário semanal
+                </h2>
+                <a href="schedule.php" class="panel-link">
+                  Ver completo
+                  <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+                </a>
+              </div>
+              <div class="days-nav">
+                <?php foreach ($dias_uteis as $dia):
+                  $cnt = count(array_filter($horario_semana, fn($a)=>$a['dia']===$dia));
+                  $is_hoje = ($dia===$hoje);
+                  $active = ($is_hoje || ($dia==='Segunda' && !in_array($hoje,$dias_uteis))) ? 'active' : '';
+                ?>
+                <button class="day-btn <?= $active ?> <?= $is_hoje?'hoje':'' ?>" 
+                        onclick="mostrarDia('<?= $dia ?>',this)" data-dia="<?= $dia ?>">
+                  <span class="day-name"><?= $dia ?></span>
+                  <span class="day-count"><?= $cnt ?> aula<?= $cnt!==1?'s':'' ?></span>
+                </button>
+                <?php endforeach; ?>
+              </div>
+              <div class="classes-container">
+                <?php foreach ($dias_uteis as $dia):
+                  $aulas_d = array_filter($horario_semana, fn($a)=>$a['dia']===$dia);
+                  $is_hoje  = ($dia===$hoje);
+                  $visible  = ($is_hoje || ($dia==='Segunda' && !in_array($hoje,$dias_uteis))) ? 'visible' : '';
+                ?>
+                <div class="day-classes <?= $visible ?>" id="dia-<?= $dia ?>">
+                  <?php if (empty($aulas_d)): ?>
+                    <div class="no-classes"><p>Sem aulas programadas neste dia.</p></div>
+                  <?php else: foreach($aulas_d as $aula):
+                    $st  = $is_hoje ? aula_st($aula['hora_inicio'],$aula['hora_fim'],$hora_actual) : 'futura';
+                  ?>
+                  <div class="class-row">
+                    <div class="class-hour-col">
+                      <span class="hour-start"><?= $aula['hora_inicio'] ?></span>
+                      <div class="hour-sep"></div>
+                      <span class="hour-end"><?= $aula['hora_fim'] ?></span>
+                    </div>
+                    <div class="class-content <?= $st==='passada'?'b-passada':'' ?>">
+                      <div class="class-main">
+                        <strong><?= htmlspecialchars($aula['disciplina']) ?></strong>
+                        <span class="class-tag"
+                          style="background:<?= cd($aula['disciplina'],'bg') ?>;color:<?= cd($aula['disciplina'],'txt') ?>;border-color:<?= cd($aula['disciplina'],'brd') ?>">
+                          <svg viewBox="0 0 24 24">
+                            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                          </svg>
+                          <?= htmlspecialchars($aula['turma']) ?>
+                        </span>
+                      </div>
+                      <?php if ($is_hoje && $st==='activa'): ?>
+                        <span class="class-badge b-activa">Em curso</span>
+                      <?php elseif ($is_hoje && $st==='futura'): ?>
+                        <span class="class-badge b-futura">A seguir</span>
+                      <?php endif; ?>
+                    </div>
+                  </div>
+                  <?php endforeach; endif; ?>
+                </div>
+                <?php endforeach; ?>
+              </div>
+            </section>
+
+            <!-- Disciplinas -->
+            <div class="panel" style="animation-delay:.30s">
+              <div class="panel-header">
+                <div class="panel-title">
+                  <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
+                  Disciplinas que lecciono
+                </div>
+              </div>
+              <?php $disc_cores=['#1457C8','#0B7A4E','#6D3FCC'];
+                    foreach ($disciplinas as $i=>$d): $c=$disc_cores[$i%3]; ?>
+              <div class="disc-item">
+                <div class="disc-dot" style="background:<?= $c ?>"></div>
+                <span class="disc-nome"><?= htmlspecialchars($d['nome']) ?></span>
+                <span class="disc-turmas"><?= $d['num_turmas'] ?> turma<?= $d['num_turmas']>1?'s':'' ?></span>
+              </div>
+              <?php endforeach; ?>
+            </div>
+
+          </div>
+        </section>
       </main>
     </div>
     <script src="/gabnet-system/assets/js/dashboard.js"></script>

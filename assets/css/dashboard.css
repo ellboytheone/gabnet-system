@@ -4,7 +4,7 @@
   --sb-bg-t: #07251a;
   --green-dim: rgba(18, 160, 106, 0.18);
   --bg2: #e8edf7;
-  --sidebar-w: 240px;
+  --sidebar-w: 250px;
   --header-h: 70px;
   --shadow-sm: 0 2px 16px rgba(11, 61, 145, 0.09);
   --shadow-md: 0 4px 28px rgba(11, 61, 145, 0.13);
@@ -297,7 +297,7 @@ body {
   color: var(--yellow);
   cursor: pointer;
 }
-.teacher .topbar-avatar{
+.teacher .topbar-avatar {
   background-color: var(--sb-bg-t);
 }
 .content {
@@ -335,7 +335,7 @@ body {
   gap: 14px;
   margin-bottom: 26px;
 }
-.teacher .stats-grid{
+.teacher .stats-grid {
   grid-template-columns: repeat(4, 1fr);
 }
 .stat-card {
@@ -407,7 +407,7 @@ body {
 }
 .main-grid {
   display: grid;
-  grid-template-columns: 1fr 360px;
+  grid-template-columns: 1fr 370px;
   gap: 20px;
 }
 .panel {
@@ -440,6 +440,9 @@ body {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.teacher .panel-header h2 svg {
+  stroke: var(--green);
+}
 .panel-link {
   font-size: 0.76rem;
   font-weight: 500;
@@ -448,6 +451,9 @@ body {
   align-items: center;
   gap: 4px;
   transition: opacity 0.15s;
+}
+.panel-link {
+  color: var(--green);
 }
 .panel-link:hover {
   opacity: 0.7;
@@ -721,6 +727,140 @@ body {
 }
 .sidebar-overlay.open {
   display: block;
+}
+
+/* Painel do professor*/
+.days-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 4px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.day-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 14px;
+  border-radius: 9px;
+  background: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition-duration: 0.15s;
+  white-space: nowrap;
+  min-width: 72px;
+}
+.day-btn:hover {
+  background-color: var(--bg);
+  border-color: var(--border);
+}
+.day-btn.active {
+  background-color: var(--green-dim);
+  border-color: rgba(18, 160, 106, 0.3);
+}
+.day-btn .day-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--txt-2);
+  letter-spacing: 0.03em;
+  transition: color 0.15s;
+}
+.day-btn.active .day-name {
+  color: var(--green);
+}
+.day-btn .day-count {
+  font-size: 0.65rem;
+  color: var(--txt-3);
+  margin-top: 2px;
+}
+.day-btn.active .day-count {
+  color: var(--green-c);
+  font-weight: 600;
+}
+.day-btn.hoje .day-name::after {
+  content: " ●";
+  color: var(--green);
+  font-size: 0.5rem;
+  vertical-align: middle;
+}
+.classes-container {
+  min-height: 160px;
+}
+.day-classes {
+  display: block;
+}
+.day-classes.visible {
+  display: block;
+}
+.class-row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+  transition-duration: 0.12s;
+}
+.class-row:last-child {
+  border-bottom: none;
+}
+.class-row:hover {
+  background-color: var(--bg);
+}
+.class-hour-col {
+  width: 80px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 12px;
+  border-right: 1px solid var(--border);
+}
+.hour-start {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--txt-dark);
+}
+.hour-sep {
+  width: 1px;
+  height: 14px;
+  background: var(--border);
+  margin: 3px 0;
+}
+.hour-end {
+  font-size: 0.72rem;
+  color: var(--txt-3);
+}
+.class-content {
+  flex: 1;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.class-main strong {
+  display: block;
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.class-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 3px 9px;
+  border-radius: 99px;
+  border: 1px solid;
+}
+.class-tag svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.5;
 }
 
 @media (max-width: 1100px) {
