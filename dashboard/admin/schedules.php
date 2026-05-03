@@ -20,7 +20,7 @@
     />
     <link rel="stylesheet" href="/gabnet-system/assets/css/dashboard.css" />
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
-    <title>Meu Painel - GABnet</title>
+    <title>Horários - GABnet</title>
   </head>
   <body class="admin">
     <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
@@ -52,7 +52,7 @@
       </div>
       <span class="nav-section">Visão Geral</span>
       <nav class="nav-links">
-        <a href="index.php" class="nav-link active">
+        <a href="index.php" class="nav-link">
           <svg viewBox="0 0 24 24">
             <rect x="3" y="3" width="7" height="7" />
             <rect x="14" y="3" width="7" height="7" />
@@ -78,7 +78,7 @@
           </svg>
           Turmas
         </a>
-        <a href="schedules.php" class="nav-link">
+        <a href="schedules.php" class="nav-link active">
           <svg viewBox="0 0 24 24">
             <rect x="3" y="4" width="18" height="18" rx="2" />
             <line x1="16" y1="2" x2="16" y2="6" />
@@ -95,7 +95,7 @@
           </svg>
           Criar Comunicado
         </a>
-        <a href="announcement.php" class="nav-link">
+        <a href="announcements.php" class="nav-link">
           <svg viewBox="0 0 24 24">
             <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
@@ -130,7 +130,7 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; <strong>Painel de Administrador</strong>
+            GABnet &rsaquo; Painel de Administrador &rsaquo; <strong>Horários</strong>
           </div>
         </section>
         <section class="topbar-right">
@@ -141,23 +141,6 @@
         </section>
       </header>
       <main class="content">
-        <section class="greeting">
-          <div class="greeting-text">
-            <?php $h=(int)date('H'); $greeting=$h<12?'Bom dia':($h<18?'Boa
-            tarde':'Boa noite'); ?>
-            <h1><?= $greeting ?>, <em>Sr. Pedro</em></h1>
-            <p>Tens <strong>2</strong> solicitações pendentes.</p>
-          </div>
-          <a href="create-announcement.php" class="announce-btn">
-            <svg viewBox="0 0 24 24">
-              <line x1="22" y1="2" x2="11" y2="13"/>
-              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-            </svg>
-            Solicitar anúncio
-          </a>
-        </section>
-        <section class="stats-grid">
-        </section>
         <section class="main-grid">
             <div class="left-col"></div>
             <div class="right-col"></div>

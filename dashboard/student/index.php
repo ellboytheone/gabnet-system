@@ -232,39 +232,41 @@ function aula_status(string $ini, string $fim, int $agora): string {
           </div>
         </section>
         <section class="main-grid">
-          <section class="panel">
-            <div class="panel-header">
-              <h2>
-                <svg viewBox="0 0 24 24">
-                  <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-                  <path d="M13.73 21a2 2 0 01-3.46 0"/>
-                </svg>
-                Comunicados recentes
-              </h2>
-              <a href="announcements.php" class="panel-link">
-                Ver todos
-                <svg viewBox="0 0 24 24">
-                  <polyline points="9 18 15 12 9 6"/>
-                </svg>
-              </a>
-            </div>
-
-            <?php foreach ($comunicados as $c): ?>
-            <article class="announcement-item">
-              <div class="imp-dot imp-<?= $c['importancia'] ?>"></div>
-              <div class="com-body">
-                <strong><?= htmlspecialchars($c['titulo']) ?></strong>
-                <p><?= htmlspecialchars($c['conteudo']) ?></p>
-                <div class="com-meta">
-                  <span class="imp-badge badge-<?= $c['importancia'] ?>"><?= $c['importancia'] ?></span>
-                  <span class="com-date"><?= date('d/m/Y', strtotime($c['criado_em'])) ?></span>
-                </div>
+          <div class="right-col">
+            <section class="panel" id="announcements-panel">
+              <div class="panel-header">
+                <h2>
+                  <svg viewBox="0 0 24 24">
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 01-3.46 0"/>
+                  </svg>
+                  Comunicados recentes
+                </h2>
+                <a href="announcements.php" class="panel-link">
+                  Ver todos
+                  <svg viewBox="0 0 24 24">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </a>
               </div>
-            </article>
-            <?php endforeach; ?>
-          </section>
-          <section class="side-panel">
-            <div class="panel schedule-panel">
+  
+              <?php foreach ($comunicados as $c): ?>
+              <article class="announcement-item">
+                <div class="imp-dot imp-<?= $c['importancia'] ?>"></div>
+                <div class="com-body">
+                  <strong><?= htmlspecialchars($c['titulo']) ?></strong>
+                  <p><?= htmlspecialchars($c['conteudo']) ?></p>
+                  <div class="com-meta">
+                    <span class="imp-badge badge-<?= $c['importancia'] ?>"><?= $c['importancia'] ?></span>
+                    <span class="com-date"><?= date('d/m/Y', strtotime($c['criado_em'])) ?></span>
+                  </div>
+                </div>
+              </article>
+              <?php endforeach; ?>
+            </section>
+          </div>
+          <div class="left-col">
+            <section class="panel schedule-panel">
               <div class="panel-header">
                 <h2>
                   <svg viewBox="0 0 24 24">
@@ -275,7 +277,7 @@ function aula_status(string $ini, string $fim, int $agora): string {
                   </svg>
                   Aulas de hoje
                 </h2>
-                <a href="horario.php" class="panel-link">
+                <a href="schedule.php" class="panel-link">
                   Semana completa
                   <svg viewBox="0 0 24 24">
                     <polyline points="9 18 15 12 9 6"/>
@@ -309,8 +311,8 @@ function aula_status(string $ini, string $fim, int $agora): string {
                 </div>
                 <?php endforeach; ?>
               <?php endif; ?>
-            </div>
-            <div class="profile-card">
+            </section>
+            <section class="profile-card">
               <div class="profile-card-top">
                 <div class="profile-avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
                 <div class="info">
@@ -345,8 +347,8 @@ function aula_status(string $ini, string $fim, int $agora): string {
                   Ver perfil completo
                 </button>
               </a>
-            </div>
-          </section>
+            </section>
+          </div>
         </section>
       </main>
     </div>

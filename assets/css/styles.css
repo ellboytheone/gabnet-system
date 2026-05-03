@@ -189,6 +189,9 @@ svg {
   padding: 90px 0 80px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .intro::before {
   content: "";
