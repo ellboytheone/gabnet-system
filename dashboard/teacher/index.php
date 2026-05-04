@@ -164,8 +164,8 @@
               <small>Turmas atribuidas</small>
             </div>
           </div>
-          <div class="stat-card blue">
-            <div class="stat-icon blue">
+          <div class="stat-card green">
+            <div class="stat-icon green">
               <svg viewBox="0 0 24 24">
                 <rect x="3" y="4" width="18" height="18" rx="2" />
                 <line x1="16" y1="2" x2="16" y2="6" />
@@ -178,8 +178,8 @@
               <small>Aulas esta semana</small>
             </div>
           </div>
-          <div class="stat-card purple">
-            <div class="stat-icon purple">
+          <div class="stat-card orange">
+            <div class="stat-icon orange">
               <svg viewBox="0 0 24 24">
                 <circle cx="12" cy="12" r="10" />
                 <polyline points="12 6 12 12 16 14" />

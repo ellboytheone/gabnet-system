@@ -12,6 +12,8 @@ html {
   --blue: #0b3d91;
   --blue-m: #1457c8;
   --blue-c: #5b8def;
+  --blue-bg: #ebf1fd;
+  --blue-brd: #bacaf5;
   --yellow: #f5b800;
   --yellow-s: #ffcf40;
   --yellow-soft: #fffbea;
@@ -26,6 +28,8 @@ html {
   --gray-2: #e8ecf4;
   --gray-txt: #5a6478;
   --txt-dark: #0d1b35;
+  --txt-2: #5b6780;
+  --txt-3: #9aaac0;
   --radius: 12px;
   --radius-lg: 20px;
   --shadow: 0 4px 24px rgba(11, 61, 145, 0.1);
