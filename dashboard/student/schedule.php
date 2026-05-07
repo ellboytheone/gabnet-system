@@ -1,44 +1,3 @@
-<?php
-  $aluno = [
-      'nome'        => $_SESSION['nome'] ?? 'Emmanuel Mateus',
-      'inscricao'   => 'INF-2024-001',
-      'turma'       => 'Turma 12INF - 1',
-      'periodo'     => 'Manhã',
-      'classe'      => '12.ª Classe',
-  ];
-  /* --- Comunicados recentes (substituir por query real) ---
-    SELECT * FROM comunicado
-    WHERE filtro IN ('Todos','Alunos')
-        OR (filtro = 'Turma' AND id_turma = ?)
-    ORDER BY criado_em DESC LIMIT 4
-  */
-  $comunicados = [
-      ['titulo' => 'Reunião de encarregados de educação', 'importancia' => 'Alta',  'criado_em' => '2026-04-14', 'conteudo' => 'A reunião realiza-se no dia 18 de Abril às 09h00 no salão principal da escola.'],
-      ['titulo' => 'Calendário de exames do 2.º trimestre', 'importancia' => 'Média', 'criado_em' => '2026-04-12', 'conteudo' => 'Os exames decorrem entre os dias 22 e 30 de Abril. Consulta o horário afixado.'],
-      ['titulo' => 'Inscrição para actividades extracurriculares', 'importancia' => 'Baixa',  'criado_em' => '2026-04-10', 'conteudo' => 'As inscrições para o clube de robótica e o grupo de teatro estão abertas.'],
-      ['titulo' => 'Manutenção do sistema — Sábado', 'importancia' => 'Baixa',  'criado_em' => '2026-04-08', 'conteudo' => 'O portal estará indisponível no sábado entre as 02h00 e as 06h00.'],
-  ];
-
-  /* --- Horário de hoje (substituir por query real) ---
-    SELECT h.*, d.nome AS disciplina, u.nome AS professor_nome
-    FROM horario h
-    JOIN disciplina d ON h.id_disciplina = d.id
-    JOIN professor p  ON h.id_professor  = p.id
-    JOIN usuario u    ON p.id_usuario    = u.id
-    WHERE h.id_turma = ? AND h.dia_semana = ?  (dia da semana actual)
-    ORDER BY h.hora_inicio
-  */
-  $dias_semana = ['Sunday'=>'Domingo','Monday'=>'Segunda','Tuesday'=>'Terça','Wednesday'=>'Quarta','Thursday'=>'Quinta','Friday'=>'Sexta','Saturday'=>'Sábado'];
-  $hoje = $dias_semana[date('l')];
-
-  $aulas_hoje = [
-      ['hora_inicio'=>'07:30','hora_fim'=>'09:00','disciplina'=>'Matemática',       'professor'=>'Prof. António Silva'],
-      ['hora_inicio'=>'09:00','hora_fim'=>'10:30','disciplina'=>'Língua Portuguesa', 'professor'=>'Prof.ª Maria João'],
-      ['hora_inicio'=>'10:45','hora_fim'=>'12:15','disciplina'=>'Informática',       'professor'=>'Prof. Carlos Mendes'],
-  ];
-
-  $hora_actual = (int) date('H') * 60 + (int) date('i');
-?>
 
 <!doctype html>
 <html lang="pt-PT">
@@ -60,6 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@100..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/gabnet-system/assets/css/schedule.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/dashboard.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
     <title>Horário - GABnet</title>
@@ -79,10 +39,10 @@
         </div>
       </div>
       <div class="id-card student">
-        <div class="avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
+        <div class="avatar-lg">E</div>
         <div class="id-info">
-          <strong><?= htmlspecialchars($aluno['nome']) ?></strong>
-          <small><?= htmlspecialchars($aluno['classe']) ?></small>
+          <strong>Emmanuel Mateus</strong>
+          <small>12.ª Classe</small>
           <div class="id-badge">
             <svg viewBox="0 0 24 24">
               <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -111,7 +71,7 @@
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
           </svg>
           Comunicados
-          <span class="nav-badge"><?= count(array_filter($comunicados, fn($c) => $c['importancia'] === 'Alta')) ?></span>
+          <span class="nav-badge">1</span>
         </a>
         <a href="schedule.php" class="nav-link active">
           <svg viewBox="0 0 24 24">
@@ -152,7 +112,7 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; Painel de Estudante &rsaquo; <strong>Horário</strong>
+            GABnet &rsaquo; <a href="index.php">Painel de Estudante</a> &rsaquo; <strong>Horário</strong>
           </div>
         </section>
         <section class="topbar-right">
@@ -161,13 +121,210 @@
           </div>
           <a href="profile.php">
             <div class="topbar-avatar">
-              <?= strtoupper(substr($aluno['nome'], 0, 1)) ?? 'E' ?>
+              E
             </div>
           </a>
         </section>
       </header>
-      <main>
-      
+      <main class="content">
+        <header class="main-header">
+          <h1>O teu <em>horário</em></h1>
+          <p>12ª Informática · Período da Manhã · 13 aulas semanais</p>
+        </header>
+        <section class="next-lesson-card">
+          <div class="nl-icon">
+            <svg viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="nl-info">
+            <div class="nl-label">Próxima aula</div>
+            <div class="nl-disc">Electrotecnia</div>
+            <div class="nl-meta">Prof. António Calunga</div>
+          </div>
+          <div class="nl-hour">
+            <strong>09:00</strong>
+            <span>até 10:30</span>
+          </div>
+        </section>
+        <section class="current-lesson-card" style="display: none;">
+          <div class="cl-pulse">
+            <svg viewBox="0 0 24 24">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+            </svg>
+          </div>
+          <div class="cl-info">
+            <div class="cl-label">Aula em curso agora</div>
+            <div class="cl-disc">Matemática</div>
+            <div class="cl-meta">Prof. Humberto Kibanzala</div>
+          </div>
+          <div class="cl-hour">
+            <strong id="hour-live"><?= date('H:i') ?></strong>
+            <span>09:00 – 10:30</span>
+          </div>
+        </section>
+        <div class="main-grid schedule">
+          <section class="view-bar" style="display: none;">
+            <div class="view-toggle">
+              <a href="?view=week">
+                <button class="vt-btn active">
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  Semana
+                </button>
+              </a>
+              <a href="?view=day&day=Segunda">
+                <button class="vt-btn">
+                  <svg viewBox="0 0 24 24">
+                    <circle cx="12" cy="12" r="10"/>
+                    <polyline points="12 6 12 12 16 14"/>
+                  </svg>
+                  Dia
+                </button>
+              </a>
+            </div>
+          </section>
+          <section class="panel" id="schedule-panel">
+            <div class="schedule-container">
+              <div class="panel-header">
+                <h2>
+                  <svg viewBox="0 0 24 24">
+                    <rect x="3" y="4" width="18" height="18" rx="2"/>
+                    <line x1="16" y1="2" x2="16" y2="6"/>
+                    <line x1="8" y1="2" x2="8" y2="6"/>
+                    <line x1="3" y1="10" x2="21" y2="10"/>
+                  </svg>
+                  12.ª Informática - Horário semanal 
+                </h2>
+                <p class="panel-header-text">
+                  13 aulas · 5 disciplinas 
+                </p>
+              </div>
+              <div class="week-grid-wrap">
+                <div class="week-grid">
+                  <div class="wg-header today">
+                    Segunda
+                    <span class="today-dot"></span>
+                  </div>
+                  <div class="wg-header">
+                    Terça
+                  </div>
+                  <div class="wg-header">
+                    Quarta
+                  </div>
+                  <div class="wg-header">
+                    Quinta
+                  </div>
+                  <div class="wg-header">
+                    Sexta
+                  </div>
+
+                  <div class="week-day-col today">
+                    <div class="wd-lesson active">
+                      <div class="wd-lesson-discipline">Matemática</div>
+                      <div class="wd-lesson-teacher">Prof. Humberto Kibanzala</div>
+                      <div class="wd-lesson-hour">07:30-09:00</div>
+                      <div class="now-badge">
+                        <span class="now-dot"></span>Agora
+                      </div> 
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Base de Dados</div>
+                      <div class="wd-lesson-teacher">Prof. Timóteo José</div>
+                      <div class="wd-lesson-hour">09:30-11:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Electrotecnia</div>
+                      <div class="wd-lesson-teacher">Prof. António Calunga</div>
+                      <div class="wd-lesson-hour">11:30-13:00</div>
+                    </div>
+                  </div>
+                  <div class="week-day-col">
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Matemática</div>
+                      <div class="wd-lesson-teacher">Prof. Humberto Kibanzala</div>
+                      <div class="wd-lesson-hour">07:30-09:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Electrotecnia</div>
+                      <div class="wd-lesson-teacher">Prof. António Calunga</div>
+                      <div class="wd-lesson-hour">11:30-13:00</div>
+                    </div>
+                  </div>
+                  <div class="week-day-col">
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Matemática</div>
+                      <div class="wd-lesson-teacher">Prof. Humberto Kibanzala</div>
+                      <div class="wd-lesson-hour">07:30-09:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Base de Dados</div>
+                      <div class="wd-lesson-teacher">Prof. Timóteo José</div>
+                      <div class="wd-lesson-hour">09:30-11:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Electrotecnia</div>
+                      <div class="wd-lesson-teacher">Prof. António Calunga</div>
+                      <div class="wd-lesson-hour">11:30-13:00</div>
+                    </div>
+                  </div>
+                  <div class="week-day-col">
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Matemática</div>
+                      <div class="wd-lesson-teacher">Prof. Humberto Kibanzala</div>
+                      <div class="wd-lesson-hour">07:30-09:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Electrotecnia</div>
+                      <div class="wd-lesson-teacher">Prof. António Calunga</div>
+                      <div class="wd-lesson-hour">11:30-13:00</div>
+                    </div>
+                  </div>
+                  <div class="week-day-col">
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Matemática</div>
+                      <div class="wd-lesson-teacher">Prof. Humberto Kibanzala</div>
+                      <div class="wd-lesson-hour">07:30-09:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Base de Dados</div>
+                      <div class="wd-lesson-teacher">Prof. Timóteo José</div>
+                      <div class="wd-lesson-hour">09:30-11:00</div>
+                    </div>
+                    <div class="wd-lesson">
+                      <div class="wd-lesson-discipline">Electrotecnia</div>
+                      <div class="wd-lesson-teacher">Prof. António Calunga</div>
+                      <div class="wd-lesson-hour">11:30-13:00</div>
+                    </div>
+                  </div>
+
+                  <div class="week-footer-cell">
+                    <span>3</span> aulas
+                  </div>
+                  <div class="week-footer-cell">
+                    <span>2</span> aulas
+                  </div>
+                  <div class="week-footer-cell">
+                    <span>3</span> aulas
+                  </div>
+                  <div class="week-footer-cell">
+                    <span>2</span> aulas
+                  </div>
+                  <div class="week-footer-cell">
+                    <span>3</span> aulas
+                  </div>
+                </div>
+              </div>
+              <div style="height: 25px;"></div>
+            </div>
+          </section>
+        </div>
       </main>
     </div>
   </body>

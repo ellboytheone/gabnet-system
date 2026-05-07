@@ -6,6 +6,9 @@
   --sb-bg-a: #0a1628;
   --green-dim: rgba(18, 160, 106, 0.18);
   --bg2: #e8edf7;
+  --lock-bg: #f7f8fc;
+  --lock-brd: #e8ecf6;
+  --lock-txt: #8896b0;
   --sidebar-w: 250px;
   --header-h: 70px;
   --shadow-sm: 0 2px 16px rgba(11, 61, 145, 0.09);
@@ -322,17 +325,20 @@ table {
   padding: 28px;
   overflow-y: auto;
 }
+.main-header,
 .greeting {
   text-align: center;
   margin-bottom: 26px;
   animation: fadeUp 0.5s ease both;
 }
+.main-header h1,
 .greeting h1 {
   font-family: "DM Serif Display", serif;
   font-size: clamp(1.4rem, 2.5vw, 1.85rem);
   line-height: 1.2;
   margin-bottom: 4px;
 }
+.main-header h1 em,
 .greeting h1 em {
   color: var(--blue-m);
   font-style: italic;
@@ -343,6 +349,7 @@ table {
 .admin .greeting h1 em {
   color: var(--blue-c);
 }
+.main-header p,
 .greeting p {
   font-size: 0.85rem;
   color: var(--txt-2);
@@ -500,6 +507,7 @@ table {
   align-items: center;
   gap: 8px;
 }
+
 .panel-header h2 svg {
   width: 16px;
   height: 16px;
@@ -509,9 +517,13 @@ table {
   stroke-linecap: round;
   stroke-linejoin: round;
 }
+.panel-header h2.locked svg {
+  stroke: var(--lock-txt);
+}
 .teacher .panel-header h2 svg {
   stroke: var(--green);
 }
+.panel-header-text,
 .panel-link {
   font-size: 0.76rem;
   font-weight: 500;
@@ -520,6 +532,28 @@ table {
   align-items: center;
   gap: 4px;
   transition: opacity 0.15s;
+}
+.panel-header-text.editable-pill,
+.panel-header-text.locked-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+.panel-header-text.editable-pill {
+  background-color: var(--blue-bg);
+  color: var(--blue-m);
+  border: 1px solid var(--blue-brd);
+}
+.panel-header-text.locked-pill {
+  background-color: var(--lock-bg);
+  color: var(--lock-txt);
+  border: 1px solid var(--lock-brd);
+}
+.panel-header-text {
+  color: var(--txt-2);
 }
 .teacher .panel-link {
   color: var(--green);
@@ -1526,6 +1560,14 @@ table {
 }
 
 @media (max-width: 1100px) {
+  .admin .announce-btn,
+  .teacher .announce-btn {
+    display: none;
+  }
+  .admin .stats-grid,
+  .teacher .stats-grid {
+    grid-template-columns: 1fr;
+  }
   .stats-grid {
     grid-template-columns: 1fr;
   }

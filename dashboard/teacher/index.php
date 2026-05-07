@@ -127,7 +127,7 @@
             <?php $h=(int)date('H'); $greeting=$h<12?'Bom dia':($h<18?'Boa
             tarde':'Boa noite'); ?>
             <h1><?= $greeting ?>, <em>Prof. Antônio</em></h1>
-            <p>Tens <strong>2</strong> aula(s) hoje (Dia). Bom trabalho!</p>
+            <p>Tens <strong>2</strong> aulas hoje (Quarta). Bom trabalho!</p>
           </div>
           <a href="announce.php" class="announce-btn">
             <svg viewBox="0 0 24 24">
@@ -213,7 +213,7 @@
               </div>
               <div class="days-nav">
                 <button
-                  class="day-btn today active"
+                  class="day-btn"
                   onclick="showDay('', this)"
                   data-dia=""
                 >
@@ -224,7 +224,7 @@
                   <span class="day-name">Terça</span>
                   <span class="day-count">3 aulas</span>
                 </button>
-                <button class="day-btn" onclick="showDay('', this)" data-dia="">
+                <button class="day-btn  today active" onclick="showDay('', this)" data-dia="">
                   <span class="day-name">Quarta</span>
                   <span class="day-count">1 aula</span>
                 </button>

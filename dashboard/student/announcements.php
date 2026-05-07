@@ -1,44 +1,3 @@
-<?php
-  $aluno = [
-      'nome'        => $_SESSION['nome'] ?? 'Emmanuel Mateus',
-      'inscricao'   => 'INF-2024-001',
-      'turma'       => 'Turma 12INF - 1',
-      'periodo'     => 'Manhã',
-      'classe'      => '12.ª Classe',
-  ];
-  /* --- Comunicados recentes (substituir por query real) ---
-    SELECT * FROM comunicado
-    WHERE filtro IN ('Todos','Alunos')
-        OR (filtro = 'Turma' AND id_turma = ?)
-    ORDER BY criado_em DESC LIMIT 4
-  */
-  $comunicados = [
-      ['titulo' => 'Reunião de encarregados de educação', 'importancia' => 'Alta',  'criado_em' => '2026-04-14', 'conteudo' => 'A reunião realiza-se no dia 18 de Abril às 09h00 no salão principal da escola.'],
-      ['titulo' => 'Calendário de exames do 2.º trimestre', 'importancia' => 'Média', 'criado_em' => '2026-04-12', 'conteudo' => 'Os exames decorrem entre os dias 22 e 30 de Abril. Consulta o horário afixado.'],
-      ['titulo' => 'Inscrição para actividades extracurriculares', 'importancia' => 'Baixa',  'criado_em' => '2026-04-10', 'conteudo' => 'As inscrições para o clube de robótica e o grupo de teatro estão abertas.'],
-      ['titulo' => 'Manutenção do sistema — Sábado', 'importancia' => 'Baixa',  'criado_em' => '2026-04-08', 'conteudo' => 'O portal estará indisponível no sábado entre as 02h00 e as 06h00.'],
-  ];
-
-  /* --- Horário de hoje (substituir por query real) ---
-    SELECT h.*, d.nome AS disciplina, u.nome AS professor_nome
-    FROM horario h
-    JOIN disciplina d ON h.id_disciplina = d.id
-    JOIN professor p  ON h.id_professor  = p.id
-    JOIN usuario u    ON p.id_usuario    = u.id
-    WHERE h.id_turma = ? AND h.dia_semana = ?  (dia da semana actual)
-    ORDER BY h.hora_inicio
-  */
-  $dias_semana = ['Sunday'=>'Domingo','Monday'=>'Segunda','Tuesday'=>'Terça','Wednesday'=>'Quarta','Thursday'=>'Quinta','Friday'=>'Sexta','Saturday'=>'Sábado'];
-  $hoje = $dias_semana[date('l')];
-
-  $aulas_hoje = [
-      ['hora_inicio'=>'07:30','hora_fim'=>'09:00','disciplina'=>'Matemática',       'professor'=>'Prof. António Silva'],
-      ['hora_inicio'=>'09:00','hora_fim'=>'10:30','disciplina'=>'Língua Portuguesa', 'professor'=>'Prof.ª Maria João'],
-      ['hora_inicio'=>'10:45','hora_fim'=>'12:15','disciplina'=>'Informática',       'professor'=>'Prof. Carlos Mendes'],
-  ];
-
-  $hora_actual = (int) date('H') * 60 + (int) date('i');
-?>
 
 <!doctype html>
 <html lang="pt-PT">
@@ -60,6 +19,7 @@
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Sora:wght@100..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="stylesheet" href="/gabnet-system/assets/css/announcements.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/dashboard.css">
     <link rel="stylesheet" href="/gabnet-system/assets/css/styles.css" />
     <title>Comunicados - GABnet</title>
@@ -79,10 +39,10 @@
         </div>
       </div>
       <div class="id-card student">
-        <div class="avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
+        <div class="avatar-lg">E</div>
         <div class="id-info">
-          <strong><?= htmlspecialchars($aluno['nome']) ?></strong>
-          <small><?= htmlspecialchars($aluno['classe']) ?></small>
+          <strong>Emmanuel Mateus</strong>
+          <small>12.ª Classe</small>
           <div class="id-badge">
             <svg viewBox="0 0 24 24">
               <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
@@ -111,7 +71,7 @@
             <path d="M13.73 21a2 2 0 01-3.46 0"/>
           </svg>
           Comunicados
-          <span class="nav-badge"><?= count(array_filter($comunicados, fn($c) => $c['importancia'] === 'Alta')) ?></span>
+          <span class="nav-badge">1</span>
         </a>
         <a href="schedule.php" class="nav-link">
           <svg viewBox="0 0 24 24">
@@ -152,7 +112,7 @@
             <span></span>
           </button>
           <div class="breadcrumb">
-            GABnet &rsaquo; Painel de Estudante &rsaquo; <strong>Comunicados</strong>
+            GABnet &rsaquo; <a href="index.php">Painel de Estudante</a> &rsaquo; <strong>Comunicados</strong>
           </div>
         </section>
         <section class="topbar-right">
@@ -161,13 +121,221 @@
           </div>
           <a href="profile.php">
             <div class="topbar-avatar">
-              <?= strtoupper(substr($aluno['nome'], 0, 1)) ?? 'E' ?>
+              E
             </div>
           </a>
         </section>
       </header>
-      <main>
-      
+      <main class="content">
+        <header class="main-header">
+          <h1>Os teus <em>comunicados</em></h1>
+          <p>Tens 1 comunicados urgentes que requerem atenção.</p>
+        </header>
+        <section class="filter-row">
+          <a href="announcements.php" class="filter-pill active">
+            Todos <span class="fp-count">7</span>
+          </a>
+          <a href="?imp=High" class="filter-pill high">
+            Alta <span class="fp-count">1</span>
+          </a>
+          <a href="?imp=Medium" class="filter-pill medium">
+            Média <span class="fp-count">3</span>
+          </a>
+          <a href="?imp=Low" class="filter-pill low">
+            Baixa <span class="fp-count">3</span>
+          </a>
+        </section>
+        <div class="main-grid">
+          <div class="left-col">
+            <section class="panel" id="announcements-panel-s">
+              <div class="panel-header">
+                <h2>
+                  <svg viewBox="0 0 24 24">
+                    <path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+                    <path d="M13.73 21a2 2 0 01-3.46 0"/>
+                  </svg>
+                  Comunicados recentes
+                </h2>
+                <span class="panel-header-text">7 resultados</span>
+              </div>
+              <div class="ann-item active" id="ci-1" onclick="lerComunicado()">
+                <div class="imp-bar high"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label high">Alta</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      22/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-2" onclick="lerComunicado()">
+                <div class="imp-bar medium"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label medium">Média</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      27/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-3" onclick="lerComunicado()">
+                <div class="imp-bar medium"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label medium">Média</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      27/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-4" onclick="lerComunicado()">
+                <div class="imp-bar medium"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label medium">Média</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      28/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-5" onclick="lerComunicado()">
+                <div class="imp-bar low"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label low">Baixa</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      27/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-6" onclick="lerComunicado()">
+                <div class="imp-bar low"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label low">Baixa</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      27/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+              <div class="ann-item" id="ci-7" onclick="lerComunicado()">
+                <div class="imp-bar low"></div>
+                <div class="ann-body">
+                  <div class="ann-r1">
+                    <span class="ann-title">Titulo do Comunicado</span>
+                    <span class="imp-label low">Baixa</span>
+                  </div>
+                  <div class="ann-r2">
+                    <span class="ann-meta">
+                      <svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                      </svg>
+                      27/04/2026
+                    </span>
+                    <span class="target-tag">Tua turma</span>
+                  </div>
+                  <div class="ann-excerpt">Conteudo do comunicado, Aqui haverá mais detalhes sobre o assunto.</div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <div class="right-col">
+            <section class="reading-panel" id="reading-panel">
+              <div class="reading-placeholder" id="reading-placeholder">
+                <svg viewBox="0 0 24 24">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+                <p>Clica num comunicado para ler o conteúdo completo.</p>
+              </div>
+              <div id="rp-wrapper" style="display: none;">
+                <div class="rp-imp-stripe" id="rp-stripe"></div>
+                <div class="rp-header">
+                  <div class="rp-badge-row">
+                    <span class="imp-label" id="rp-badge"></span>
+                    <span class="target-tag" id="rp-target"></span>
+                  </div>
+                  <div class="rp-title" id="rp-title"></div>
+                </div>
+                <div class="rp-body">
+                  <div class="rp-content" id="rp-content"></div>
+                  <div class="rp-meta">
+                    <div class="rp-meta-item">
+                      <div class="rp-meta-label">Publicado por</div>
+                      <div class="rp-meta-val" id="rp-author"></div>
+                    </div>
+                    <div class="rp-meta-item">
+                      <div class="rp-meta-label">Data</div>
+                      <div class="rp-meta-val" id="rp-date"></div>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
       </main>
     </div>
   </body>

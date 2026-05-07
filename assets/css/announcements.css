@@ -1,0 +1,266 @@
+/*Student Panel*/
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.5s 0.08s ease both;
+}
+.filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1.5px solid var(--border);
+  background-color: var(--white);
+  color: var(--txt-2);
+  cursor: pointer;
+  transition-duration: 0.15s;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.filter-pill:hover {
+  background-color: var(--bg2);
+  border-color: #b8c4dc;
+  color: var(--txt-dark);
+}
+.filter-pill.active {
+  background-color: var(--blue);
+  color: var(--white);
+  border-color: var(--blue);
+}
+.filter-pill.high.active {
+  background-color: var(--red-bg);
+  color: var(--red);
+  border-color: var(--red-brd);
+}
+.filter-pill.medium.active {
+  background-color: var(--orange-bg);
+  color: var(--orange);
+  border-color: var(--orange-brd);
+}
+.filter-pill.low.active {
+  background-color: var(--blue-bg);
+  color: var(--blue-m);
+  border-color: var(--blue-brd);
+}
+.fp-count {
+  font-size: 0.65rem;
+  font-weight: 700;
+  background-color: rgba(0, 0, 0, 0.07);
+  padding: 1px 6px;
+  border-radius: 99px;
+}
+.filter-pill.active .fp-count {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+.filters-sep {
+  flex: 1;
+}
+.ann-item {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition-duration: 0.12s;
+  position: relative;
+}
+.ann-item:last-child {
+  border-bottom: none;
+}
+.ann-item:hover {
+  background-color: var(--bg);
+}
+.ann-item.active {
+  background-color: var(--blue-bg);
+}
+.ann-item.active::after {
+  content: "";
+  position: absolute;
+  right: -1px;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--blue-m);
+  border-radius: 2px 0 0 2px;
+}
+.imp-bar {
+  width: 4px;
+  flex-shrink: 0;
+}
+.imp-bar.high {
+  background-color: var(--red);
+}
+.imp-bar.medium {
+  background-color: var(--orange);
+}
+.imp-bar.low {
+  background-color: var(--gray-txt);
+}
+.ann-body {
+  flex: 1;
+  padding: 14px 16px;
+  min-width: 0;
+}
+.ann-r1 {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+.ann-title {
+  font-size: 0.87rem;
+  font-weight: 600;
+  line-height: 1.3;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.ann-r2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.ann-meta {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7rem;
+  color: var(--txt-3);
+}
+.ann-meta svg {
+  width: 10px;
+  height: 10px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ann-excerpt {
+  font-size: 0.77rem;
+  color: var(--txt-3);
+  margin-top: 5px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+}
+.target-tag {
+  font-size: 0.63rem;
+  font-weight: 600;
+  background: var(--bg2);
+  color: var(--txt-2);
+  border: 1px solid var(--border);
+  padding: 1px 7px;
+  border-radius: 99px;
+  white-space: nowrap;
+}
+
+.reading-panel {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.reading-panel.visible {
+  display: block;
+  animation: fadeUp 0.3s ease both;
+}
+.reading-placeholder {
+  background-color: var(--white);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-lg);
+  padding: 52px 24px;
+  text-align: center;
+}
+.reading-placeholder svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--txt-3);
+  fill: none;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  margin: 0 auto 14px;
+  display: block;
+}
+.reading-placeholder p {
+  font-size: 0.84rem;
+  color: var(--txt-3);
+  line-height: 1.6;
+}
+.rp-imp-stripe {
+  height: 5px;
+}
+.rp-imp-high .rp-imp-stripe {
+  background: var(--red);
+}
+.rp-imp-medium .rp-imp-stripe {
+  background: var(--orange);
+}
+.rp-imp-low .rp-imp-stripe {
+  background: var(--gray-txt);
+}
+.rp-header {
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.rp-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.rp-title {
+  font-family: "DM Serif Display", serif;
+  font-size: 1.1rem;
+  line-height: 1.3;
+  color: var(--txt-dark);
+}
+
+.rp-body {
+  padding: 18px 20px;
+}
+.rp-content {
+  font-size: 0.86rem;
+  color: var(--txt-2);
+  line-height: 1.8;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 18px;
+}
+.rp-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.rp-meta-item {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 10px 12px;
+}
+.rp-meta-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--txt-3);
+  margin-bottom: 2px;
+}
+.rp-meta-val {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--txt-dark);
+}
