@@ -3,7 +3,7 @@ function lerComunicado(elemento) {
   document.getElementById("reading-placeholder").style.display = "none";
 
   // mostrar painel
-  document.getElementById("rp-wrapper").classList.add("reading-panel");
+  document.getElementById("rp-wrapper").style.display = "block";
 
   // pegar dados
   const titulo = elemento.dataset.titulo;

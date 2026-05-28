@@ -99,7 +99,7 @@ require __DIR__ . '/../../includes/topbar.php';
                   <div class="ro-value"><?= htmlspecialchars($aluno['email_encarregado'])?></div>
                 </div>
                 <?php endif; ?>
-                <?php if ($aluno['numero_encarregado']): ?>
+                <?php if ($aluno['telefone_encarregado']): ?>
                 <div class="ro-field">
                   <div class="ro-label">
                     <svg viewBox="0 0 24 24">
@@ -123,10 +123,10 @@ require __DIR__ . '/../../includes/topbar.php';
           </div>
           <div class="panel identity-card">
             <div class="id-banner">
-              <div class="id-avatar">E</div>
+              <div class="id-avatar"><?= htmlspecialchars($iniciais)?></div>
             </div>
             <div class="id-body">
-              <div class="id-name"><?= htmlspecialchars($nomes)?></div>
+              <div class="id-name"><?= htmlspecialchars($nome)?></div>
               <div class="id-email"><?= htmlspecialchars($_SESSION['email'])?></div>
               <div class="id-divider"></div>
 

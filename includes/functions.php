@@ -1,34 +1,30 @@
 <?php
+    function encontrarPessoa($pdo, $email){
+        $tabelas = [
+            'aluno' => 'Estudante',
+            'professor' => 'Professor',
+            'admin' => 'Administrador'
+        ];
+        foreach($tabelas as $tabela => $papel){
 
-function encontrarPessoa($pdo, $email){
+            $stmt = $pdo->prepare("
+                SELECT *
+                FROM $tabela
+                WHERE email = ?
+                LIMIT 1
+            ");
 
-    $tabelas = [
-        'aluno' => 'Estudante',
-        'professor' => 'Professor',
-        'admin' => 'Administrador'
-    ];
+            $stmt->execute([$email]);
 
-    foreach($tabelas as $tabela => $papel){
+            $dados = $stmt->fetch();
 
-        $stmt = $pdo->prepare("
-            SELECT *
-            FROM $tabela
-            WHERE email = ?
-            LIMIT 1
-        ");
+            if($dados){
 
-        $stmt->execute([$email]);
+                $dados['papel'] = $papel;
+                $dados['tabela'] = $tabela;
 
-        $dados = $stmt->fetch();
-
-        if($dados){
-
-            $dados['papel'] = $papel;
-            $dados['tabela'] = $tabela;
-
-            return $dados;
+                return $dados;
+            }
         }
+        return null;
     }
-
-    return null;
-}

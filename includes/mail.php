@@ -1,5 +1,4 @@
 <?php
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -146,7 +145,6 @@ function enviarCodigo($destino, $nome, $codigo){
         HTML;
 
         return $mail->send();
-
     }catch(Exception $e){
         return false;
     }

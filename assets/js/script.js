@@ -10,12 +10,3 @@ function togglePassword(inputId, buttonId) {
   eyeOn.style.display = viewable ? "none" : "block";
   eyeOff.style.display = viewable ? "block" : "none";
 }
-document.querySelector("logout-form").addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const sair = confirm("Tens a certeza que queres terminar sessão?");
-
-  if (sair) {
-    this.submit();
-  }
-});

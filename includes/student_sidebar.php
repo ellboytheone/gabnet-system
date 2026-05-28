@@ -7,14 +7,14 @@ $primeiro = $nomes[0] ?? '';
 $ultimo = $nomes[count($nomes) - 1] ?? '';
 $iniciais = strtoupper(substr($primeiro, 0, 1)) .
             strtoupper(substr($ultimo ?: '', 0, 1));
-$classe = $aluno['classe'] ?? 'Sem Classe';
+$classe = $turma['classe'] ?? 'Sem Classe';
 $pagina_ativa = $pagina_ativa ?? null;
 
 //contabilizar o numero de comunicados importantes
 $stmt = $pdo->prepare("
     SELECT COUNT(*) as total
     FROM comunicado
-    WHERE (filtro IN ('Todos', 'Alunos')
+    WHERE (destino IN ('Todos', 'Alunos')
     OR id_turma = ?)
     AND importancia = 'Alta'
 ");

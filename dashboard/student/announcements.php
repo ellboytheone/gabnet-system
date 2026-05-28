@@ -77,7 +77,8 @@ require __DIR__ . '/../../includes/topbar.php';
                          data-conteudo="<?= htmlspecialchars($c['conteudo'])?>"
                          data-importancia="<?= htmlspecialchars($c['importancia'])?>"
                          data-autor="<?= htmlspecialchars($c['autor'] ?? 'Administração')?>"
-                         data-data="<?= date('d/m/Y', strtotime($c['criado_em'])) ?>">
+                         data-data="<?= date('d/m/Y', strtotime($c['criado_em'])) ?>"
+                         data-alvo="<?= (htmlspecialchars($c['filtro']) === 'Turma') ? htmlspecialchars($turma['nome']) : htmlspecialchars($c['filtro'])?>">
                   <div class="imp-dot imp-<?= $c['importancia'] ?>"></div>
                   <div class="com-body">
                     <strong><?= htmlspecialchars($c['titulo']) ?></strong>
@@ -92,7 +93,7 @@ require __DIR__ . '/../../includes/topbar.php';
             </section>
           </div>
           <div class="right-col">
-            <section class="empty-state" id="reading-panel">
+            <section id="reading-panel">
               <div class="reading-placeholder" id="reading-placeholder" style="display: block;">
                 <svg viewBox="0 0 24 24">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
@@ -100,11 +101,11 @@ require __DIR__ . '/../../includes/topbar.php';
                 </svg>
                 <p>Clica num comunicado para ler o conteúdo completo.</p>
               </div>
-              <div id="rp-wrapper" class="rp-imp-<?= $c['importancia'] ?>" style="display: none;">
+              <div id="rp-wrapper" class="rp-wrapper rp-imp-<?= $c['importancia'] ?>" style="display: none;">
                 <div class="rp-imp-bar" id="rp-stripe"></div>
                 <div class="rp-header">
                   <div class="rp-badge-row">
-                    <span class="imp-label <?= $c['importancia'] ?>" id="rp-badge">ALta</span>
+                    <span class="imp-label <?= $c['importancia'] ?>" id="rp-badge"><?= $c['importancia'] ?></span>
                     <span class="target-tag" id="rp-target">Todos</span>
                   </div>
                   <div class="rp-title" id="rp-title">Titulo do Comunicado</div>

@@ -1,192 +1,173 @@
 <?php
-session_start();
+  session_start();
 
-if (isset($_SESSION['usuario_id'])) {
-  switch ($_SESSION['papel']) {
-    case 'Administrador': header('Location: dashboard/admin/index.php'); exit;
-    case 'Professor':     header('Location: dashboard/teacher/index.php'); exit;
-    case 'Estudante':     header('Location: dashboard/student/index.php'); exit;
+  /* 1. Redireciona se já esta autenticado */
+  if (isset($_SESSION['usuario_id'])) {
+    switch ($_SESSION['papel']) {
+      case 'Administrador': header('Location: dashboard/admin/'); exit;
+      case 'Professor':     header('Location: dashboard/teacher/'); exit;
+      case 'Estudante':     header('Location: dashboard/student/'); exit;
+    }
   }
-}
 
-require 'config/database.php';
-require 'includes/mail.php';
-require 'includes/functions.php';
+  /* 2. Ligacao a base de dados */
+  require 'config/database.php';
 
-$passo = 1;   
-$email_passo = '';
-$msg = '';
-$msg_tipo = '';
+  /* 3. Ligacao ao servico de email */
+  require 'includes/mail.php';
 
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    //ENVIAR CÓDIGO
-    if(isset($_POST['acao']) &&
-      $_POST['acao'] === 'verificar_email'){
+  /* 4. Ligacao a funcoes auxiliares */
+  require 'includes/functions.php';
 
-      $email = trim($_POST['email']);
+  $passo = 1; //Variavel que indica o passo actual do processo de registo (1 ou 2)   
+  $email_passo = ''; //Armazena o email inserido no passo 1 para exibir no passo 2
+  $msg = ''; //Mensagem de feedback para o utilizador (erro ou sucesso)
+  $msg_tipo = ''; //Indica o tipo da mensagem ('ok' para sucesso, 'erro' para erros)
 
-      $email_passo = $email;
+  /* 5. Processamento do POST */
+  //Verificar qual ação está sendo solicitada (verificar email ou activar conta)
+  if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    /* 5a. Verificar email e enviar código de activação */
+    if(isset($_POST['acao']) && $_POST['acao'] === 'verificar_email'){
+      $email = trim($_POST['email']); //Armazena o email inserido pelo utilizador no passo 1
+      $email_passo = $email; //O email inserido é armazenado para ser exibido no passo 2
 
-      //PROCURA PESSOA
+      //Encontra pessoa (estudante, professor ou administrador) pelo email
       $pessoa = encontrarPessoa($pdo, $email);
 
+      //Se a pessoa nao for encontrada, exibe mensagem de erro
       if(!$pessoa){
+        $msg = 'Email não encontrado.';
+        $msg_tipo = 'erro';
 
-          $msg = 'Email não encontrado.';
-          $msg_tipo = 'erro';
+      //Se a  pessoa ja tiver um id de usuario, exibe mensagem de erro (conta ja activada)
+      }elseif($pessoa['id_usuario']){
+        $msg = 'Conta já activada.';
+        $msg_tipo = 'erro';
 
-      }elseif($pessoa['registrado']){
-
-          $msg = 'Conta já activada.';
-          $msg_tipo = 'erro';
-
+      //Se a pessoa for encontrada e nao tiver conta activada, e gerado e guardado um OTP relacionado a aquela pessoa, e e enviado um email com o mesmo OTP para o email da pessoa
       }else{
 
-          //GERA OTP
-          $codigo = random_int(100000, 999999);
+        //Gera-se um numero aleatorio entre 100000 e 999999 para ser o codigo OTP
+        $codigo = random_int(100000, 999999); //Armazena o numero correspondente ao OTP
 
-          $expira = date(
-            'Y-m-d H:i:s',
-            strtotime('+20 minutes')
-          );
+        //E definido o tempo de expiracao do OTP para 20 minutos a partir do momento atual
+        $expira = date('Y-m-d H:i:s', strtotime('+20 minutes')); //Armazena a data e hora de expiracao do OTP
 
-          //GUARDA OTP
-          $sql = $pdo->prepare("
-              UPDATE {$pessoa['tabela']}
-              SET otp_code = ?,
-                  otp_expira = ?
-              WHERE id = ?
-          ");
+        //Atualiza-se a tabela correspondente (estudante, professor ou administrador) para guardar o codigo OTP e a data de expiracao
+        $sql = $pdo->prepare("
+          UPDATE {$pessoa['tabela']}
+            SET 
+              otp_codigo = ?,
+              otp_expira = ?
+            WHERE id = ?
+        ");
+        $sql->execute([
+          $codigo,
+          $expira,
+          $pessoa['id']
+        ]);
 
-          $sql->execute([
-              $codigo,
-              $expira,
-              $pessoa['id']
-          ]);
+        //Envia-se um email com o OTP para a pessoa encontrada
+        $enviado = enviarCodigo(
+          $email,
+          $pessoa['nome'],
+          $codigo
+        );
 
-          //ENVIA EMAIL
-          $enviado = enviarCodigo(
-              $email,
-              $pessoa['nome'],
-              $codigo
-          );
-
-          if($enviado){
-
-              $passo = 2;
-
-              $msg = 'Código enviado.';
-              $msg_tipo = 'ok';
-
-          }else{
-
-              $msg = 'Erro ao enviar email.';
-              $msg_tipo = 'erro';
-          }
+        //Se o email for enviado com sucesso, passa-se para o passo 2 (activacao da conta), senao exibe-se uma mensagem de erro
+        if($enviado){
+          $passo = 2;
+          $msg = 'Código enviado.';
+          $msg_tipo = 'ok';
+        }else{
+          $msg = 'Erro ao enviar email.';
+          $msg_tipo = 'erro';
+        }
       }
     }
 
-    if(isset($_POST['acao']) &&
-      $_POST['acao'] === 'activar_conta'){
+    /* 5b. Verificar o OTP inserido e ativar a conta (adicionando uma senha) */
+    if(isset($_POST['acao']) && $_POST['acao'] === 'activar_conta'){
+      $email = trim($_POST['email']); //Armazena o email para o qual o código foi enviado (vindo do campo oculto do formulário)
+      $codigo = trim($_POST['codigo']); //Armazena o OTP inserido pelo utilizador no passo 2
+      $senha = $_POST['nova_senha']; //Armazena a senha inserida pelo utilizador no passo 2
+      $confirmar = $_POST['confirmar_senha']; //Armazena a confirmação de senha inserida pelo utilizador no passo 2
 
-        $email = trim($_POST['email']);
+      $passo = 2;
 
-        $codigo = trim($_POST['codigo']);
+      $email_passo = $email; //O email é armazenado novamente para permanecer exibido no passo 2 caso haja algum erro
 
-        $senha = $_POST['nova_senha'];
+      /* Verifica-se se as senhas (senha definida e confirmação) coincidem, senao e exibido uma mensagem de erro */
+      if($senha !== $confirmar){
+        $msg = 'As senhas não coincidem.';
+        $msg_tipo = 'erro';
+      }else{
+        $pessoa = encontrarPessoa($pdo, $email); // Armazena os dados da pessoa encontrada
 
-        $confirmar = $_POST['confirmar_senha'];
+        //Se a pessoa nao for encontrada, e exibida uma mensagem de erro
+        if(!$pessoa){
+          $msg = 'Conta não encontrada.';
+          $msg_tipo = 'erro';
+            
+        //Se o OTP inserido nao coincidir com o OTP gerado para aquela pessoa, e exibida uma mensagem de erro
+        }elseif($pessoa['otp_codigo'] !== (string)$codigo){
+          $msg = 'Código inválido.';
+          $msg_tipo = 'erro';
 
-        $passo = 2;
+        //Se o OTP tiver expirado (data de expiracao menor que a data e hora atual), e exibida uma mensagem de erro
+        }elseif(strtotime($pessoa['otp_expira']) < time()){
+          $msg = 'Código expirado.';
+          $msg_tipo = 'erro';
 
-        $email_passo = $email;
-
-        //VALIDA SENHAS
-        if($senha !== $confirmar){
-
-            $msg = 'As senhas não coincidem.';
-            $msg_tipo = 'erro';
-
+        //Se tudo estiver nos conformes, o usuario e registrado no sistema
         }else{
+          //A senha inserida e convertida em hash (Para melhoria da seguranca, e mais conveniente)
+          $hash = password_hash($senha, PASSWORD_DEFAULT);
 
-            //PROCURA PESSOA
-            $pessoa = encontrarPessoa($pdo, $email);
+          //Aos dados do usuario correspondentes a pessoa (incluindo o hash da senha), sao inseridos no banco de dados
+          $sql = $pdo->prepare("
+            INSERT INTO usuario (
+              nome,
+              email,
+              senha,
+              papel,
+              referencia_id
+            )
+            VALUES (?, ?, ?, ?, ?)
+          ");
+          $sql->execute([
+            $pessoa['nome'],
+            $email,
+            $hash,
+            $pessoa['papel'],
+            $pessoa['id']
+          ]);
 
-            if(!$pessoa){
+          //O id do usuario recem-criado e obtido para ser associado a pessoa correspondente
+          $usuario_id = $pdo->lastInsertId(); //Armazena o id do usuario recem-criado
 
-                $msg = 'Conta não encontrada.';
-                $msg_tipo = 'erro';
+          //A conta da pessoa e ativada, sua linha agora possui um id_usuario, que corresponde ao id do usuario recem-criado. O codigo OTP e sua data de expiracao sao limpos (definidos como NULL)
+          $up = $pdo->prepare("
+            UPDATE {$pessoa['tabela']}
+              SET 
+                otp_codigo = NULL,
+                otp_expira = NULL,
+                id_usuario = ?
+              WHERE id = ?
+          ");
+          $up->execute([
+            $usuario_id,
+            $pessoa['id']
+          ]);
 
-            }elseif($pessoa['otp_code'] !== $codigo){
-
-                $msg = 'Código inválido.';
-                $msg_tipo = 'erro';
-
-            }elseif(
-                strtotime($pessoa['otp_expira']) < time()
-            ){
-
-                $msg = 'Código expirado.';
-                $msg_tipo = 'erro';
-
-            }else{
-
-                //HASH
-                $hash = password_hash(
-                    $senha,
-                    PASSWORD_DEFAULT
-                );
-
-                //CRIA UTILIZADOR
-                $sql = $pdo->prepare("
-                    INSERT INTO usuario (
-                        nome,
-                        email,
-                        senha,
-                        papel,
-                        referencia_id
-                    )
-                    VALUES (?, ?, ?, ?, ?)
-                ");
-
-                $sql->execute([
-
-                    $pessoa['nome'],
-
-                    $email,
-
-                    $hash,
-
-                    $pessoa['papel'],
-
-                    $pessoa['id']
-                ]);
-
-                //ID DO UTILIZADOR
-                $usuario_id = $pdo->lastInsertId();
-
-                //ACTIVAR CONTA
-                $up = $pdo->prepare("
-                    UPDATE {$pessoa['tabela']}
-                    SET registrado = 1,
-                        otp_code = NULL,
-                        otp_expira = NULL,
-                        id_usuario = ?
-                    WHERE id = ?
-                ");
-
-                $up->execute([
-                    $usuario_id,
-                    $pessoa['id']
-                ]);
-
-                header('Location: login.php');
-                exit;
-            }
+          //Depois disso, direciona-se a pagina de login
+          header('Location: login.php');
+          exit;
         }
+      }
     }
-}
-
+  }
 ?>
 <!doctype html>
 <html lang="pt-PT">
@@ -338,8 +319,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
           </div>
   
           <form method="POST" action="register.php" id="form-p2">
-            <input type="hidden" name="acao"   value="activar_conta"/>
-            <input type="hidden" name="email"  id="email-hidden" value="<?= htmlspecialchars($email_passo) ?>"/>
+            <input type="hidden" name="acao" value="activar_conta"/>
+            <input type="hidden" name="email" id="email-hidden" value="<?= htmlspecialchars($email_passo) ?>"/>
             <input type="hidden" name="codigo" id="codigo-hidden" value=""/>
   
             <div class="field">
@@ -525,15 +506,18 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
       /* Validações client-side */
       if(codigo.length !== 6 || !/^\d{6}$/.test(codigo)){
-        marcarCodigoErro(); return;
+        marcarCodigoErro(); 
+        return;
       }
       const nova = document.getElementById('nova-senha').value;
       const conf = document.getElementById('confirmar-senha').value;
       if(nova.length < 6){
-        document.getElementById('nova-senha').classList.add('error'); return;
+        document.getElementById('nova-senha').classList.add('error'); 
+        return;
       }
       if(nova !== conf){
-        document.getElementById('confirmar-senha').classList.add('error'); return;
+        document.getElementById('confirmar-senha').classList.add('error'); 
+        return;
       }
 
       /* Loading */

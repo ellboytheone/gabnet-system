@@ -28,8 +28,19 @@ require __DIR__ . '/../../includes/topbar.php';
             $h = (int) date('H');
             $saud = $h < 12 ? 'Bom dia' : ($h < 18 ? 'Boa tarde' : 'Boa noite');
           ?>
-          <h1><?= $saud ?>, <em><?= htmlspecialchars(explode(' ', $aluno['nome'])[0]) ?></em></h1>
-          <p>Hoje é <?= $hoje ?> Tens <?= count($aulas_hoje) ?> aula<?php ($aulas_hoje > 1) ?: 's' ?> programada<?php ($aulas_hoje > 1) ?: 's' ?> para hoje.</p>
+          <h1>
+            <?= $saud ?>,
+            <em>
+              <?= htmlspecialchars($primeiro) ?>
+            </em>
+          </h1>
+          <p>
+            Hoje é <?= $hoje ?>.
+            Tens <?= $total_aulas_hoje ?>
+            aula<?= ($total_aulas_hoje !== 1) ? 's' : '' ?>
+            programada<?= ($total_aulas_hoje !== 1) ? 's' : '' ?>
+            para hoje.
+          </p>
         </section>
         <section class="stats-grid student">
           <div class="stat-card">
@@ -169,7 +180,7 @@ require __DIR__ . '/../../includes/topbar.php';
               </div>
               <div class="profile-field">
                 <span>Classe</span>
-                <span><?= htmlspecialchars($aluno['classe']) ?></span>
+                <span><?= htmlspecialchars($turma['classe']) ?></span>
               </div>
               <div class="profile-field">
                 <span>Período</span>

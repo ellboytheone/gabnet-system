@@ -338,7 +338,6 @@ table {
   margin-bottom: 26px;
   animation: fadeUp 0.5s ease both;
 }
-.imp-label
 .main-header h1,
 .greeting h1 {
   font-family: "DM Serif Display", serif;
@@ -663,7 +662,6 @@ table {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 .com-meta {
   display: flex;
   align-items: center;
@@ -695,11 +693,9 @@ table {
   font-size: 0.7rem;
   color: #9ca3af;
 }
-
 .schedule-panel {
   animation: fadeUp 0.5s 0.3s ease both;
 }
-
 .lesson-item {
   display: flex;
   gap: 12px;

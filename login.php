@@ -1,37 +1,36 @@
 <?php
   session_start();
 
-  /* ── 1. Redireciona se já está autenticado ───────────────────── */
+  /* 1. Redireciona se já esta autenticado */
   if (isset($_SESSION['usuario_id'])) {
       switch ($_SESSION['papel']) {
-          case 'Administrador': header('Location: dashboard/admin/index.php');       exit;
-          case 'Professor':     header('Location: dashboard/teacher/index.php'); exit;
-          case 'Estudante':     header('Location: dashboard/student/index.php');     exit;
+          case 'Administrador': header('Location: dashboard/admin/'); exit;
+          case 'Professor':     header('Location: dashboard/teacher/'); exit;
+          case 'Estudante':     header('Location: dashboard/student/'); exit;
       }
   }
 
-  /* ── 2. Ligação à base de dados ──────────────────────────────── */
-  
+  /* 2. Ligacao a base de dados */
   require_once 'config/database.php';
   
-  /* ── 3. Processamento do POST ────────────────────────────────── */
-  $erro = '';
-  $email_val = '';   /* preserva o email no campo após erro */
+  /* 3. Processamento do POST */
+  $erro = ''; /*preserva a mensagem de erro para exibicao */
+  $email_val = '';   /* preserva o email no campo apos erro */
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      /* 3a. Sanitização básica */
+      /* 3a. Sanitizacao basica */
       $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL));
       $senha = trim($_POST['senha'] ?? '');
 
-      /* 3b. Validação de campos obrigatórios (RN: campos não podem estar vazios) */
+      /* 3b. Validação de campos obrigatórios (RN: campos nao podem estar vazios e o email nao pode ser invalido) */
       if (empty($email) || empty($senha)) {
           $erro = 'Por favor, preenche o email e a senha.';
       } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
           $erro = 'O formato do email não é válido.';
       } else {
 
-          /* 3c. Consulta à BD — busca por email único */
+          /* 3c. Consulta a BD — busca por email unico */
           $stmt = $pdo->prepare('
               SELECT id, nome, email, senha, papel, criado_em, referencia_id
               FROM usuario
@@ -45,11 +44,9 @@
           if (!$usuario || !password_verify($senha, $usuario['senha'])) {
               $erro = 'Email ou senha incorrectos. Verifica os dados e tenta novamente.';
               $email_val = htmlspecialchars($email);
-
-          /* 3e. Verificação se a conta está activa (RN: conta suspensa não acede) */
           } else {
-              /* 3f. Login bem-sucedido — cria a sessão */
-              session_regenerate_id(true);   /* previne session fixation */
+              /* 3e. Login bem-sucedido — cria a sessão */
+              session_regenerate_id(true);   /* Previne session fixation */
 
               $_SESSION['usuario_id'] = $usuario['id'];
               $_SESSION['nome']       = $usuario['nome'];
@@ -58,12 +55,14 @@
               $_SESSION['criado_em']  = $usuario['criado_em'];
               $_SESSION['referencia'] = $usuario['referencia_id'];
               
-
-              /* 3g. Redireciona para o painel correcto pelo papel (RN: acesso por papel) */
+              /* 3f. Redireciona para o painel correcto pelo papel (RN: acesso por papel) */
               switch ($usuario['papel']) {
-                  case 'Administrador': header('Location: dashboard/admin/index.php'); exit;
-                  case 'Professor':     header('Location: dashboard/teacher/index.php'); exit;
-                  case 'Estudante':     header('Location: dashboard/student/index.php'); exit;
+                  case 'Administrador': 
+                    header('Location: dashboard/admin/'); exit;
+                  case 'Professor':     
+                    header('Location: dashboard/teacher/'); exit;
+                  case 'Estudante':     
+                    header('Location: dashboard/student/'); exit;
                   default:
                       $erro = 'Tipo de conta não reconhecido. Contacta o administrador.';
               }
@@ -243,6 +242,7 @@
                 </button>
               </div>
             </div>
+
             <button type="submit" class="btn-login" id="btn-login">
               <div class="spinner"></div>
               <span class="btn-txt">Entrar na minha conta</span>
