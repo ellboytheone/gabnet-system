@@ -21,14 +21,14 @@ require __DIR__ . '/../../includes/admin_sidebar.php';
 $titulo = '';
 $mensagem = '';
 $importancia = '';
-$destino = '';
+$filtro = '';
 $turma = null;
 $encarregados = 0;
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $titulo       = trim($_POST['titulo']);
     $importancia  = $_POST['importancia'];
-    $destino      = $_POST['destino'];
+    $filtro      = $_POST['destino'];
     $turma        = $_POST['turma'] ?? null;
     $mensagem     = trim($_POST['mensagem']);
     $encarregados = isset($_POST['encarregados']) ? 1 : 0;
@@ -41,18 +41,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
             importancia,
             filtro,
             id_turma,
-            id_autor
+            id_autor,
+            estado
         )
-        VALUES (?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
     
     $stmt->execute([
         $titulo,
         $mensagem,
         $importancia,
-        $destino,
+        $filtro,
         $turma,
-        $_SESSION['usuario_id']
+        $_SESSION['usuario_id'],
+        'Aceite'
     ]);
 }
 

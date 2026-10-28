@@ -36,9 +36,9 @@
 
         //pegar os comunicados da tabela comunicado correspondentes a esse usuario
         $stmt = $pdo->prepare('
-              SELECT id, titulo, conteudo, id_autor, importancia, destino, criado_em
+              SELECT id, titulo, conteudo, id_autor, importancia, filtro, criado_em
               FROM comunicado
-              WHERE (destino IN ("Todos", "Alunos")
+              WHERE (filtro IN ("Todos", "Alunos")
               OR id_turma = ?) 
               AND estado = "Aceite"
           ');

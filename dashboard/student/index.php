@@ -163,7 +163,7 @@ require __DIR__ . '/../../includes/topbar.php';
             </section>
             <section class="profile-card">
               <div class="profile-card-top">
-                <div class="profile-avatar-lg"><?= strtoupper(substr($aluno['nome'], 0, 1)) ?></div>
+                <div class="profile-avatar-lg"><?= htmlspecialchars($iniciais) ?></div>
                 <div class="info">
                   <strong><?= htmlspecialchars($aluno['nome']) ?></strong>
                   <small>Perfíl de estudante</small>

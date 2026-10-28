@@ -19,10 +19,10 @@ $iniciais = strtoupper(substr($primeiro, 0, 1)) .
         <div class="breadcrumb">
             GABnet &rsaquo; 
             <?php if ($painel_atual): ?>
-                &rsaquo; 
                 <a href="index.php">
                     <?= htmlspecialchars($painel_atual) ?>
                 </a>
+                &rsaquo; 
             <?php endif;?>
             <strong><?= htmlspecialchars($titulo_pagina) ?></strong>
         </div>

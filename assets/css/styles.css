@@ -16,7 +16,7 @@ html {
   --blue-brd: #bacaf5;
   --yellow: #f5b800;
   --yellow-s: #ffcf40;
-  --yellow-dim: rgba(245,184,0,.15);
+  --yellow-dim: rgba(245, 184, 0, 0.15);
   --yellow-soft: #fffbea;
   --green: #0a6e3f;
   --green-bg: #e6f4ed;
@@ -135,7 +135,7 @@ svg {
 .footer-nav a {
   font-size: 0.85rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.75);
+  color: var(--white);
   transition-duration: 0.15s;
   position: relative;
 }

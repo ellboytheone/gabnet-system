@@ -136,7 +136,7 @@ require __DIR__ . '/../../includes/topbar.php';
               </div>
               <div class="id-field">
                 <span class="id-field-label">Classe</span>
-                <span class="id-field-val"><?= htmlspecialchars($aluno['classe'])?></span>
+                <span class="id-field-val"><?= htmlspecialchars($turma['classe'])?></span>
               </div>
               <div class="id-field">
                 <span class="id-field-label">Turma</span>

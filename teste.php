@@ -1,3 +1,3 @@
 <?php
-$SENHA = password_hash ('Admin@12321', PASSWORD_DEFAULT);
+$SENHA = password_hash ('password', PASSWORD_DEFAULT);
 echo ($SENHA);

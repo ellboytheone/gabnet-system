@@ -68,6 +68,8 @@
           $pessoa['id']
         ]);
 
+        /*
+        
         //Envia-se um email com o OTP para a pessoa encontrada
         $enviado = enviarCodigo(
           $email,
@@ -76,6 +78,8 @@
         );
 
         //Se o email for enviado com sucesso, passa-se para o passo 2 (activacao da conta), senao exibe-se uma mensagem de erro
+        
+        
         if($enviado){
           $passo = 2;
           $msg = 'Código enviado.';
@@ -84,6 +88,12 @@
           $msg = 'Erro ao enviar email.';
           $msg_tipo = 'erro';
         }
+          
+        */
+
+        $passo = 2;
+        $msg = 'Código enviado.';
+        $msg_tipo = 'ok';
       }
     }
 

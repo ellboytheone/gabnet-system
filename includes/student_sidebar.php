@@ -14,7 +14,7 @@ $pagina_ativa = $pagina_ativa ?? null;
 $stmt = $pdo->prepare("
     SELECT COUNT(*) as total
     FROM comunicado
-    WHERE (destino IN ('Todos', 'Alunos')
+    WHERE (filtro IN ('Todos', 'Alunos')
     OR id_turma = ?)
     AND importancia = 'Alta'
 ");

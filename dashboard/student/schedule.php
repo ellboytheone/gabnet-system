@@ -39,7 +39,7 @@ foreach ($horarios as $aula) {
       <main class="content">
         <header class="main-header">
           <h1>O teu <em>horário</em></h1>
-          <p><?= $aluno['classe']?> · Período da <?= $turma['periodo']?> · <?= count($horarios)?> aulas semanais</p>
+          <p><?= $turma['classe']?> · Período da <?= $turma['periodo']?> · <?= count($horarios)?> aulas semanais</p>
         </header>
         <section class="next-lesson-card">
           <div class="nl-icon">
