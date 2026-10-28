@@ -24,25 +24,34 @@ $painel_atual = 'Painel de ' . $papel_permitido;
 //$titulo_pagina diz a topbar.php o titulo da pagina.
 $titulo_pagina = 'Comunicados';
 require __DIR__ . '/../../includes/topbar.php';
+
+$filtro_imp = $_GET['imp'] ?? '';
+
+$visiveis = $comunicados;
+
+if ($filtro_imp && in_array($filtro_imp, ['Alta','Média','Baixa'])) {
+    $visiveis = array_values(array_filter($visiveis, fn($c) => $c['importancia'] === $filtro_imp));
+}
+
 ?>
 
       <main class="content">
         <header class="main-header">
           <h1>Os teus <em>comunicados</em></h1>
-          <p>Tens 1 comunicados urgentes que requerem atenção.</p>
+          <p>Tens <?= htmlspecialchars(count(array_filter($comunicados, function($c) { return $c['importancia'] === 'Alta'; }))) ?> comunicado<?= (count($comunicados) != 1) ? 's' : '' ?> urgente<?= (count($comunicados) != 1) ? 's' : '' ?> que requer<?= (count($comunicados) != 1) ? 'em' : '' ?> atenção</p>
         </header>
         <section class="filter-row">
-          <a href="announcements.php" class="filter-pill active">
-            Todos <span class="fp-count">7</span>
+          <a href="announcements.php" class="filter-pill <?= ($filtro_imp === '') ? 'active' : '' ?>">
+            Todos <span class="fp-count"><?= htmlspecialchars(count($comunicados))?></span>
           </a>
-          <a href="?imp=High" class="filter-pill high">
-            Alta <span class="fp-count">1</span>
+          <a href="?imp=Alta" class="filter-pill high <?= ($filtro_imp === 'Alta') ? 'active' : '' ?>">
+            Alta <span class="fp-count"><?= htmlspecialchars(count(array_filter($comunicados, function($c) { return $c['importancia'] === 'Alta'; }))) ?></span>
           </a>
-          <a href="?imp=Medium" class="filter-pill medium">
-            Média <span class="fp-count">3</span>
+          <a href="?imp=Média" class="filter-pill medium <?= ($filtro_imp === 'Média') ? 'active' : '' ?>">
+            Média <span class="fp-count"><?= htmlspecialchars(count(array_filter($comunicados, function($c) { return $c['importancia'] === 'Média'; }))) ?></span>
           </a>
-          <a href="?imp=Low" class="filter-pill low">
-            Baixa <span class="fp-count">3</span>
+          <a href="?imp=Baixa" class="filter-pill low <?= ($filtro_imp === 'Baixa') ? 'active' : '' ?>">
+            Baixa <span class="fp-count"><?= htmlspecialchars(count(array_filter($comunicados, function($c) { return $c['importancia'] === 'Baixa'; }))) ?></span>
           </a>
         </section>
         <div class="main-grid">
@@ -56,9 +65,9 @@ require __DIR__ . '/../../includes/topbar.php';
                   </svg>
                   Comunicados recentes
                 </h2>
-                <span class="panel-header-text"><?= htmlspecialchars(count($comunicados))?> resultados</span>
+                <span class="panel-header-text"><?= htmlspecialchars(count($visiveis))?> resultados</span>
               </div>
-              <?php if(!$comunicados): ?>
+              <?php if(!$visiveis): ?>
                 <section class="empty-content">
                   <div class="empty-state">
                     <svg viewBox="0 0 24 24">
@@ -69,7 +78,7 @@ require __DIR__ . '/../../includes/topbar.php';
                   </div>
                 </section>
               <?php endif;?>
-              <?php foreach ($comunicados as $c): ?>
+              <?php foreach ($visiveis as $c): ?>
                 <article class="announcement-item"
                          onclick="lerComunicado(this)"
                          data-id="<?= htmlspecialchars($c['id'])?>"
@@ -101,8 +110,8 @@ require __DIR__ . '/../../includes/topbar.php';
                 </svg>
                 <p>Clica num comunicado para ler o conteúdo completo.</p>
               </div>
-              <div id="rp-wrapper" class="rp-wrapper rp-imp-<?= $c['importancia'] ?>" style="display: none;">
-                <div class="rp-imp-bar" id="rp-stripe"></div>
+              <div id="rp-wrapper" class="rp-wrapper" style="display: none;">
+                <div class="rp-imp-stripe" id="rp-stripe"></div>
                 <div class="rp-header">
                   <div class="rp-badge-row">
                     <span class="imp-label <?= $c['importancia'] ?>" id="rp-badge"><?= $c['importancia'] ?></span>
@@ -129,5 +138,10 @@ require __DIR__ . '/../../includes/topbar.php';
           </div>
         </div>
       </main>
+      <script>
+        function filterAnnouncements(importance) {
+          
+        }
+      </script>
 <?php 
 require_once __DIR__ . '/../../includes/footer.php';

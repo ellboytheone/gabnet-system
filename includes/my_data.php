@@ -41,6 +41,7 @@
               WHERE (filtro IN ("Todos", "Alunos")
               OR id_turma = ?) 
               AND estado = "Aceite"
+              ORDER BY importancia ASC, criado_em DESC
           ');
         $stmt->execute([$aluno['id_turma']]);
         $comunicados = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -23,9 +23,16 @@ function lerComunicado(elemento) {
 
   badge.textContent = importancia;
 
+  //Wrapper
+  const rpWrapper = document.getElementById("rp-wrapper");
+  rpWrapper.className = "rp-wrapper"; // resetar classes
+  rpWrapper.classList.add(importancia);
+
   // remover classes antigas
   badge.className = "imp-label";
 
   // adicionar nova classe
   badge.classList.add(importancia);
+
+  document.getElementById("reading-panel").scrollIntoView({ behavior: "smooth" } - pageXOffset);
 }

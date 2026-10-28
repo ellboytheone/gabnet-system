@@ -11,7 +11,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 14px;
+  padding: 6px 20px;
   border-radius: 99px;
   font-size: 0.78rem;
   font-weight: 600;
@@ -52,12 +52,28 @@
   font-size: 0.65rem;
   font-weight: 700;
   background-color: rgba(0, 0, 0, 0.07);
-  padding: 1px 6px;
+  padding: 2px 7px;
   border-radius: 99px;
 }
 .filter-pill.active .fp-count {
   background-color: rgba(255, 255, 255, 0.25);
 }
+
+.filter-pill.high.active .fp-count {
+  background-color: var(--red);
+  color: var(--white);
+}
+
+.filter-pill.medium.active .fp-count {
+  background-color: var(--orange);
+  color: var(--white);
+}
+
+.filter-pill.low.active .fp-count {
+  background-color: var(--blue-m);
+  color: var(--white);
+}
+
 .filters-sep {
   flex: 1;
 }
@@ -88,7 +104,16 @@
   background-color: var(--blue-m);
   border-radius: 2px 0 0 2px;
 }
-rp-im
+.rp-imp-Alta .ann-item.active::after {
+  background-color: var(--red);
+}
+.rp-imp-Media .ann-item.active::after,
+.rp-imp-Média .ann-item.active::after {
+  background-color: var(--orange);
+}
+.rp-imp-Baixa .ann-item.active::after {
+  background-color: var(--blue-m);
+}
 .imp-bar {
   width: 4px;
   flex-shrink: 0;
@@ -96,10 +121,10 @@ rp-im
 .imp-bar.Alta {
   background-color: var(--red);
 }
-.imp-bar.Media .imp-bar.Média {
+.rp-imp-Media .imp-bar.Média {
   background-color: var(--orange);
 }
-.imp-bar.Baixa {
+.rp-imp-Baixa .imp-bar.Baixa {
   background-color: var(--gray-txt);
 }
 .ann-body {
@@ -201,29 +226,28 @@ rp-im
   background-color: var(--white);
   border: 1.5px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 52px 24px;
   text-align: center;
+  overflow: hidden;
 }
-
 .rp-imp-stripe {
+  width: 100%;
   height: 5px;
 }
-.rp-imp-Alta .rp-imp-stripe {
+.rp-wrapper.Alta .rp-imp-stripe {
   background-color: var(--red);
 }
-.rp-imp-Media .rp-imp-stripe,
-.rp-imp-Média .rp-imp-stripe {
+.rp-wrapper.Média .rp-imp-stripe,
+.rp-wrapper.Media .rp-imp-stripe {
   background-color: var(--orange);
 }
-.rp-imp-Baixa .rp-imp-stripe {
-  background-color: var(--gray-txt);
+.rp-wrapper.Baixa .rp-imp-stripe {
+  background-color: var(--blue-m);
 }
 .rp-header {
   padding: 18px 20px 14px;
   border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 .rp-badge-row {
   display: flex;

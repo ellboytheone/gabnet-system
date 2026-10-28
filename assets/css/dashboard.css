@@ -616,6 +616,7 @@ table {
   padding: 16px 20px;
   border-bottom: 1px solid var(--border);
   transition-duration: 0.15s;
+  cursor: pointer;
 }
 .announcement-item:last-child {
   border-bottom: none;
@@ -638,7 +639,7 @@ table {
   background-color: var(--yellow);
 }
 .imp-Baixa {
-  background-color: #9ca3af;
+  background-color: var(--blue-m);
 }
 .com-body {
   flex: 1;
@@ -686,8 +687,8 @@ table {
   color: var(--orange);
 }
 .badge-Baixa {
-  background-color: var(--bg2);
-  color: var(--txt-2);
+  background-color: var(--blue-bg);
+  color: var(--blue-m);
 }
 .com-date {
   font-size: 0.7rem;
@@ -1397,7 +1398,6 @@ table {
   padding: 2px 8px;
   border-radius: 99px;
   white-space: nowrap;
-  margin-left: auto;
   align-self: flex-start;
   margin-top: 2px;
 }
@@ -1413,9 +1413,9 @@ table {
   border: 1px solid var(--orange-brd);
 }
 .imp-label.Baixa {
-  background: var(--bg2);
-  color: var(--gray-txt);
-  border: 1px solid var(--border);
+  background: var(--blue-bg);
+  color: var(--blue-m);
+  border: 1px solid var(--blue-brd);
 }
 /*Painel Administrador*/
 .request-item {
