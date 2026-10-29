@@ -6,6 +6,7 @@ function lerComunicado(elemento) {
   document.getElementById("rp-wrapper").style.display = "block";
 
   // pegar dados
+  const alvo = elemento.dataset.alvo;
   const titulo = elemento.dataset.titulo;
   const conteudo = elemento.dataset.conteudo;
   const importancia = elemento.dataset.importancia;
@@ -13,6 +14,7 @@ function lerComunicado(elemento) {
   const data = elemento.dataset.data;
 
   // preencher painel
+  document.getElementById("rp-target").textContent = alvo;
   document.getElementById("rp-title").textContent = titulo;
   document.getElementById("rp-content").textContent = conteudo;
   document.getElementById("rp-author").textContent = autor;
