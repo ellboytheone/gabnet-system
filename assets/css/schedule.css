@@ -323,6 +323,7 @@
   border-left: 3px solid var(--blue-m);
   transition-duration: 0.15s;
   position: relative;
+  cursor: pointer;
 }
 .teacher .wd-lesson {
   border-left: 3px solid var(--green);

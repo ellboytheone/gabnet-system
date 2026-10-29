@@ -41,70 +41,71 @@ foreach ($horarios as $aula) {
           <h1>O teu <em>horário</em></h1>
           <p><?= $turma['classe']?> · Período da <?= $turma['periodo']?> · <?= count($horarios)?> aulas semanais</p>
         </header>
-        <section class="next-lesson-card">
-          <div class="nl-icon">
-            <svg viewBox="0 0 24 24">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
-          </div>
-          <div class="nl-info">
-            <div class="nl-label">Próxima aula</div>
-            <div class="nl-disc"><?= $proxima_aula['disciplina'] ?? 'Sem aulas previstas'?></div>
-            <div class="nl-meta">
-              <?php isset($proxima_aula) ? 'Prof.' .
-              $proxima_aula['professor'] :
-              'Nenhuma aula prevista'
-              ?>
+          <?php if ($proxima_aula) { ?>
+            <section class="next-lesson-card">
+              <div class="nl-icon">
+                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <div class="nl-info">
+                <div class="nl-label">Próxima aula de hoje</div>
+                <div class="nl-disc"><?= $proxima_aula['disciplina'] ?? 'Sem aulas previstas'?></div>
+                <div class="nl-meta">
+                  <?= 'Prof.' . ($proxima_aula['professor'] ?? 'Nenhum professor') ?>
+                </div>
+              </div>
+              <div class="nl-hour">
+                <?php if($proxima_aula): ?>
+                  <strong>
+                    <?= substr($proxima_aula['hora_inicio'], 0, 5) ?>
+                  </strong>
+    
+                  <span>
+                    até <?= substr($proxima_aula['hora_fim'], 0, 5) ?>
+                  </span>
+                <?php else: ?>
+                  <strong>--:--</strong>
+                <?php endif; ?>
+              </div>
+            </section>
+          <?php } ?>
+          <section class="current-lesson-card">
+            <div class="cl-pulse">
+              <svg viewBox="0 0 24 24">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+              </svg>
             </div>
-          </div>
-          <div class="nl-hour">
-            <?php if($proxima_aula): ?>
-              <strong>
-                <?= substr($proxima_aula['hora_inicio'], 0, 5) ?>
-              </strong>
+            <div class="cl-info">
+              <div class="cl-label">Aula em curso agora</div>
+              <div class="cl-disc">
+                <?= $aula_actual['disciplina'] ?? 'Sem aulas de momento' ?>
+              </div>
 
+              <div class="cl-meta">
+                <?= isset($aula_actual)
+                    ? 'Prof. ' . $aula_actual['professor']
+                    : 'Nenhuma aula em curso'
+                ?>
+              </div>
+            </div>
+            <div class="cl-hour">
+              <strong id="hour-live"><?= date('H:i') ?></strong>
               <span>
-                até <?= substr($proxima_aula['hora_fim'], 0, 5) ?>
+                <?php if($aula_actual): ?>
+                  <?= substr($aula_actual['hora_inicio'], 0, 5) ?>
+                  –
+                  <?= substr($aula_actual['hora_fim'], 0, 5) ?>
+                <?php else: ?>
+                  Sem horário
+                <?php endif; ?>
               </span>
-            <?php else: ?>
-              <strong>--:--</strong>
-            <?php endif; ?>
-          </div>
-        </section>
-        <section class="current-lesson-card">
-          <div class="cl-pulse">
-            <svg viewBox="0 0 24 24">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-              <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-            </svg>
-          </div>
-          <div class="cl-info">
-            <div class="cl-label">Aula em curso agora</div>
-            <div class="cl-disc">
-              <?= $aula_actual['disciplina'] ?? 'Sem aula agora' ?>
             </div>
-
-            <div class="cl-meta">
-              <?= isset($aula_actual)
-                  ? 'Prof. ' . $aula_actual['professor']
-                  : 'Nenhuma aula em curso'
-              ?>
-            </div>
-          </div>
-          <div class="cl-hour">
-            <strong id="hour-live"><?= date('H:i') ?></strong>
-            <span>
-              <?php if($aula_actual): ?>
-                <?= substr($aula_actual['hora_inicio'], 0, 5) ?>
-                –
-                <?= substr($aula_actual['hora_fim'], 0, 5) ?>
-              <?php else: ?>
-                Sem horário
-              <?php endif; ?>
-            </span>
-          </div>
-        </section>
+          </section>
+          <?php if ($aula_actual) { ?>
+          <?php } ?>
         <div class="main-grid schedule">
           <section class="panel" id="schedule-panel">
             <div class="schedule-container">
