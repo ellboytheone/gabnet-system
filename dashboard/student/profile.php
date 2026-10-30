@@ -382,7 +382,7 @@ require __DIR__ . '/../../includes/topbar.php';
           <div class="dz-body">
             Ao terminar a sessão, serás redirecionado para a página de login. Todos os dados não guardados serão perdidos.
           </div>
-          <form method="POST" action="../../auth/logout.php">
+          <form method="POST" class="logout-form" action="/gabnet-system/auth/logout.php">
             <button type="submit" class="btn-danger">
               <svg viewBox="0 0 24 24">
                 <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/>
